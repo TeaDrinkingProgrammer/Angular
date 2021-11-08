@@ -3,6 +3,7 @@ name: Firebase CD
 on:
   push:
     branches: [main]
+jobs:
   firebase-deploy:
     runs-on: ubuntu-latest
     steps:
