@@ -3,19 +3,9 @@ name: Firebase CD
 on:
   push:
     branches: [main]
-<<<<<<< HEAD
-
 jobs:  
   firebase-deploy:
-=======
-    
-firebase-deploy:
->>>>>>> deec2be5a6fce4c82855cb9384560188cd7e8633
     runs-on: ubuntu-latest
-    # needs: [unit-tests, e2e-tests]
-    steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v2
         with:
           node-version: "16.x"
       - run: npm ci
