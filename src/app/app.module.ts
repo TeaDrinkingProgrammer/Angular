@@ -15,6 +15,6 @@ import { IndexComponent } from './index/index.component';
     AppRoutingModule
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [IndexComponent]
 })
 export class AppModule { }

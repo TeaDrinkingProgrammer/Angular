@@ -1,4 +1,4 @@
-FROM node:latest
+FROM node:16
 RUN mkdir -p /usr/src/app/
 RUN chown -R node:node /usr/src/app/
 WORKDIR /usr/src/app
