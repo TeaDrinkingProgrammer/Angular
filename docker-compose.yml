@@ -1,6 +1,7 @@
 version: "3.8"
 services:
   angular:
+    container_name: angular-app
     build: .
     volumes: 
       - .:/usr/src/app
