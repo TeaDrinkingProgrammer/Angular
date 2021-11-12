@@ -6,7 +6,8 @@
     "start": "ng serve",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test --code-coverage --no-watch --no-progress --browsers=ChromeNoSandbox"
+    "test": "ng test --code-coverage --no-watch --no-progress --browsers=ChromeNoSandbox",
+    "production": "http-server /dist/angular-app"
   },
   "private": true,
   "dependencies": {
@@ -15,9 +16,13 @@
     "@angular/compiler": "~13.0.0",
     "@angular/core": "~13.0.0",
     "@angular/forms": "~13.0.0",
+    "@angular/localize": "~13.0.0",
     "@angular/platform-browser": "~13.0.0",
     "@angular/platform-browser-dynamic": "~13.0.0",
     "@angular/router": "~13.0.0",
+    "@ng-bootstrap/ng-bootstrap": "^10.0.0",
+    "bootstrap": "^4.5.0",
+    "firebase": "^9.4.0",
     "protractor": "^7.0.0",
     "rxjs": "~7.4.0",
     "tslib": "^2.3.0",

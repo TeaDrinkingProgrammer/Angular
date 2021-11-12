@@ -6,6 +6,8 @@ COPY ./package*.json ./
 
 # angular
 RUN npm install -g @angular/cli@8.1.2
+# http-server
+RUN npm install -g http-server
 # firebase
 RUN npm install firebase
 RUN npm install -g firebase-tools
