@@ -6,8 +6,8 @@
 <p>Content id: {{content?.id}}</p>
 
 <ul class="list-unstyled">
-    <li><span class="px-2">Spoken in:</span> <span>{{content?.language}}</span></li>
     <li *ngIf="content?.targetLanguage"><span class="px-2">Target Language:</span> <span>{{content?.targetLanguage}}</span></li>
+    <li><span class="px-2">Spoken in:</span> <span>{{content?.language}}</span></li>
     <li><span class="px-2">Tags:</span> <span class="badge badge-primary mx-1 p-2" *ngFor="let tag of content?.tags">{{tag}}</span></li>
     <li><span class="px-2">Type:</span> <span>{{content?.contentType}}</span></li>
     <li><span class="px-2">In Production:</span> <span>{{content?.inProduction == true ? "Yes" : "No"}}</span></li>

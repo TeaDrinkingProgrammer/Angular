@@ -5,8 +5,8 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { IndexComponent } from './index/index.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { ContentListComponent } from './pages/user/content-list/content-list.component';
-import { ContentDetailComponent } from './pages/user/content-detail/content-detail.component';
+import { ContentListComponent } from './pages/content/content-list/content-list.component';
+import { ContentDetailComponent } from './pages/content/content-detail/content-detail.component';
 @NgModule({
   declarations: [
     AppComponent,

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Content, ContentInterface, ContentType } from 'src/content';
+import { Content, ContentInterface, ContentType } from './content.model';
 @Injectable({
   providedIn: 'root'
 })
@@ -24,7 +24,8 @@ export class ContentRepoService {
       platforms: new Map([["Youtube","https://www.youtube.com/c/JamesBlick/"]]),
       contentInterface: ContentInterface.Video,
       contentType: ContentType.Videos,
-      language: "English"
+      language: "English",
+      targetLanguage: "Spanish"
     }]
    }
    setOption(id : number, value : any) {      
@@ -34,7 +35,7 @@ export class ContentRepoService {
     this.contentList.push(item);
   }
   getForId(id : number){
-    return this.contentList.find((x) => x.id = id);
+    return this.contentList.filter((x) => x.id == id)[0];
   }
   
   getOption() {  

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute,ParamMap  } from '@angular/router';
-import { ContentRepoService } from 'src/app/content-repo.service';
-import { Content, ContentInterface, ContentType } from 'src/content';
+import { ContentRepoService } from '../content-repo.service';
+import { Content, ContentInterface, ContentType } from '../content.model';
 @Component({
   selector: 'app-content-detail',
   templateUrl: './content-detail.component.html',
@@ -18,10 +18,13 @@ export class ContentDetailComponent implements OnInit {
    }
   ngOnInit(): void {
     this.route.paramMap.subscribe(param => {
+
       this.id = <number> <unknown>param.get('id');
     })
     if(this.id != null){
       this.content = this._contentRepo.getForId(this.id);
+      console.log(this.content?.targetLanguage)
+      console.log(this.content?.inProduction)
     } else {
       //TODO improve this
       alert("error, id is not read");

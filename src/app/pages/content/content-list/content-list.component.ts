@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { ContentRepoService } from 'src/app/content-repo.service';
-import { Content, ContentInterface, ContentType } from 'src/content';
+import { ContentRepoService } from '../content-repo.service';
+import { Content, ContentInterface, ContentType } from '../content.model';
 // interface Content {
 //   id: number;
 //   name: string;
@@ -32,7 +32,7 @@ import { Content, ContentInterface, ContentType } from 'src/content';
 })
 
 export class ContentListComponent implements OnInit {
-  contentList: Content[] | undefined
+  contentList: Content[] = [];
   private _contentRepo : ContentRepoService;
   constructor(contentRepo : ContentRepoService) {
     this._contentRepo = contentRepo;
