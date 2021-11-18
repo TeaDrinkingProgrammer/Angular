@@ -12,10 +12,16 @@
                 <li ngbNavItem class="nav-item">
                     <a class="nav-link" routerLink="/content">Content</a>
                 </li>
+                <li ngbNavItem class="nav-item">
+                    <a class="nav-link" routerLink="/new-content">Add Content</a>
+                </li>
             </ul>
         </div>
     </div>
 </nav>
-<main class="container-lg">
+<main class="container-lg py-2 h-100">
     <router-outlet></router-outlet>
 </main>
+<footer class="footer d-flex justify-content-center bg-light p-2 mt-auto">
+    <p class="m-0 p-0"> By Stijn van Houwelingen</p>
+</footer>

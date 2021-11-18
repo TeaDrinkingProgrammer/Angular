@@ -11,7 +11,7 @@
         </tr>
     </thead>
     <tbody>
-        <tr *ngFor="let content of contentList;">
+        <tr *ngFor="let content of contentList | async;">
             <th scope="row">{{ content.id }}</th>
             <td><a [routerLink]="['./',content.id]">{{ content.name }}</a></td>
             <td>{{content.contentType}}</td>

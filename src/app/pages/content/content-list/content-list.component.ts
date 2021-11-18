@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Observable, switchMap, tap } from 'rxjs';
 import { ContentRepoService } from '../content-repo.service';
 import { Content, ContentInterface, ContentType } from '../content.model';
 // interface Content {
@@ -32,15 +33,18 @@ import { Content, ContentInterface, ContentType } from '../content.model';
 })
 
 export class ContentListComponent implements OnInit {
-  contentList: Content[] = [];
-  private _contentRepo : ContentRepoService;
+  contentList?: Observable<Content[]>;
+  private contentService : ContentRepoService;
   constructor(contentRepo : ContentRepoService) {
-    this._contentRepo = contentRepo;
+    this.contentService = contentRepo;
    }
 
   ngOnInit(): void {
     //doesn't work, changes all to one when going from 1 contentdetail to contentlist
-    this.contentList = this._contentRepo.getOption();
+    this.contentList = this.contentService.getAll().pipe(
+      tap(console.log)
+    );
+    console.log(this.contentList)
   }
 
 }

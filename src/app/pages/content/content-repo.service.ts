@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { delay, filter, from, Observable, of, take } from 'rxjs';
 import { Content, ContentInterface, ContentType } from './content.model';
 @Injectable({
   providedIn: 'root'
@@ -6,13 +7,14 @@ import { Content, ContentInterface, ContentType } from './content.model';
 
 export class ContentRepoService {
   private contentList : Content[];
+  private contentIdCounter : number = 2;
   constructor() {
     this.contentList = [
       {id: 0, name: "No Hay Tos",
         tags: ["native","real conversation", "for learners"], 
         inProduction: true,
         language: "Spanish", 
-        platforms: new Map([["Spotify","https://open.spotify.com/show/24Zc3LPwIH1nnqUbhWY2T0"]]),
+        platforms: new Map([["Spotify","https://open.spotify.com/show/24Zc3LPwIH1nnqUbhWY2T0"],["Apple Music","https://podcasts.apple.com/us/podcast/no-hay-tos-real-mexican-spanish/id1360162037"]]),
         contentInterface: ContentInterface.Either,
         contentType: ContentType.Podcast,
         websiteLink: "https://www.nohaytospodcast.com/"
@@ -32,13 +34,19 @@ export class ContentRepoService {
     this.contentList[id] = value;  
   }  
   pushItem(item : Content){
+    //TODO: how to make this observable
+    item.id = this.contentIdCounter;
     this.contentList.push(item);
+    this.contentIdCounter++;
   }
-  getForId(id : number){
-    return this.contentList.filter((x) => x.id == id)[0];
+  getForId(id : number) : Observable<Content>{
+    return from(this.contentList).pipe(
+      filter((item) => item.id === id),
+      take(1)
+    )
   }
   
-  getOption() {  
-    return this.contentList;  
+  getAll() : Observable<Content[]> {  
+    return of(this.contentList);  
   }  
 }
