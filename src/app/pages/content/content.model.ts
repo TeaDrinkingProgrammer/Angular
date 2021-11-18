@@ -14,7 +14,8 @@ export interface Content {
   export enum ContentInterface {
     Video = "Video", 
     Audio = "Audio", 
-    Either = "Both audio and video"
+    Either = "Either"
+    //TODO, you can only name the thing the same as the enumeration
   }
   export enum ContentType{
     Podcast = "Podcast", 

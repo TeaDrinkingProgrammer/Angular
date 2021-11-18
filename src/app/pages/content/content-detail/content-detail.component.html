@@ -1,0 +1,16 @@
+<div class="d-flex flex-column">
+    <h1 class="m-auto py-2">{{content$?.name}}</h1>
+    <!-- icoontjes van maken -->
+    <p class="m-auto py-2">{{content$?.contentInterface}}</p>
+</div>
+<p>Content id: {{content$?.id}}</p>
+
+<ul class="list-unstyled">
+    <li *ngIf="content$?.targetLanguage"><span class="px-2">Target Language:</span> <span>{{content$?.targetLanguage}}</span></li>
+    <li><span class="px-2">Spoken in:</span> <span>{{content$?.language}}</span></li>
+    <li><span class="px-2">Tags:</span> <span class="badge badge-primary mx-1 p-2" *ngFor="let tag of content$?.tags">{{tag}}</span></li>
+    <li><span class="px-2">Type:</span> <span>{{content$?.contentType}}</span></li>
+    <li><span class="px-2">In Production:</span> <span>{{content$?.inProduction == true ? "Yes" : "No"}}</span></li>
+    <li><span class="px-2">Platforms:</span> <span *ngFor="let platform of content$?.platforms | keyvalue"><a target="_blank" href="{{platform.value}}">{{platform.key}}</a></span></li>
+    <li *ngIf="content$?.websiteLink"><span class="px-2">Link:</span> <a href="{{content$?.websiteLink}}" target="_blank">Link to {{content$?.name}} website</a></li>
+</ul>

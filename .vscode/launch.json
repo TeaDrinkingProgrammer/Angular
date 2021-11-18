@@ -1,7 +1,14 @@
 {
     "version": "0.2.0",
     "configurations": [
-        
+        {
+            "type": "chrome",
+            "request": "launch",
+            "name": "Chrome debug",
+            "url": "http://localhost:4200",
+            "command": "ng serve --host 0.0.0.0",
+            "webRoot": "${workspaceFolder}"
+        },
         {
             "name": "Ng serve",
             "command": "ng serve --host 0.0.0.0",

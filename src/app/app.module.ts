@@ -5,20 +5,31 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { IndexComponent } from './index/index.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { ContentListComponent } from './pages/user/content-list/content-list.component';
-import { ContentDetailComponent } from './pages/user/content-detail/content-detail.component';
+import { ContentListComponent } from './pages/content/content-list/content-list.component';
+import { ContentDetailComponent } from './pages/content/content-detail/content-detail.component';
+import { AboutComponent } from './pages/about/about.component';
+import { ContentEditComponent } from './pages/content/content-edit/content-edit.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import {TagInputModule } from 'ngx-chips';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 @NgModule({
   declarations: [
     AppComponent,
     IndexComponent,
     AppComponent,
     ContentListComponent,
-    ContentDetailComponent
+    ContentDetailComponent,
+    AboutComponent,
+    ContentEditComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    NgbModule
+    NgbModule,
+    ReactiveFormsModule,
+    FormsModule,
+    TagInputModule,
+    BrowserAnimationsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

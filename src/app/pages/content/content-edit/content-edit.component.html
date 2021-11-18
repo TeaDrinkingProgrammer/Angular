@@ -1,0 +1,123 @@
+<div class="d-flex flex-column">
+    <h1 class="m-auto py-2">Edit</h1>
+</div>
+<div class="d-flex justify-content-center col-7 mx-auto">
+    <form class="mx-auto" #contentEditForm="ngForm" name="editForm" (ngSubmit)="contentEditForm.form.valid && onSubmit()">
+        <div class="form-row">
+            <div class="form-group">
+                <label for="contentName">Name</label>
+                <input type="text" class="form-control" [(ngModel)]="content.name" name="contentName" #contentName="ngModel" [ngClass]="{
+                'is-invalid': contentName.invalid
+            }" required/>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group">
+                <label for="contentTags">Tags</label>
+                <tag-input [(ngModel)]="tags" name="contentTags" #contentTags="ngModel" [ngClass]="{
+                'is-invalid': contentName.invalid
+            }" required>
+                </tag-input>
+
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="d-flex flex-column form-group">
+                <label for="contentInProduction">In production?</label>
+                <input type="checkbox" class="form-control" [(ngModel)]="content.inProduction" name="contentInProduction" #contentInProduction="ngModel" [ngClass]="{
+                'is-invalid': contentInProduction.invalid
+            }" />
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-9">
+                <label for="contentPlatform">Platforms</label>
+                <div class="d-flex flex-column form-group" *ngFor="let platform of content.platforms | keyvalue; let i = index">
+                    <div>
+                        <input type="text" class="form-control" [(ngModel)]="platform.key" name="contentPlaformName{{i}}" #contentPlaformName{{i}}="ngModel" required/>
+                        <input type="text" class="form-control" [(ngModel)]="platform.value" name="contentPlaformLink{{i}}" #contentPlaformLink{{i}}="ngModel" required/>
+                    </div>
+                    <button class="align-self-end btn btn-danger" (click)="deletePlatformField(platform.key)">Delete Platform</button>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <button type="button" (click)="addPlatformFields()" class="btn btn-primary">Add Platform</button>
+        </div>
+        <div class="form-row">
+            <div class="d-flex flex-column form-group">
+                <label for="contentInterface">Video, audio or both?</label>
+                <select class="mr-sm-2" id="contentInterface" name="contentInterface" [(ngModel)]="content.contentInterface" #contentInterface="ngModel" required>
+                    <option selected disabled>Choose an option</option>
+                    <option *ngFor="let interface of contentInterfaces">
+                        {{interface}}
+                    </option>
+                </select>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="d-flex flex-column form-group">
+                <label for="contentInterface">Kind of content</label>
+                <select class="mr-sm-2" id="contentType" name="contentType" [(ngModel)]="content.contentType" #contentType="ngModel" required>
+                    <option selected disabled>Choose an option</option>
+                    <option *ngFor="let type of contentTypes">
+                        {{type}}
+                    </option>
+                </select>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group">
+                <label for="contentWebsiteLink">Websitelink (not required)</label>
+                <input type="text" class="form-control" [(ngModel)]="content.websiteLink" name="contentWebsiteLink" #contentWebsiteLink="ngModel" [ngClass]="{
+                'is-invalid': contentWebsiteLink.invalid
+            }" />
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group">
+                <label for="contentLanguage">Language</label>
+                <input type="text" class="form-control" [(ngModel)]="content.language" name="contentLanguage" #contentLanguage="ngModel" [ngClass]="{
+                'is-invalid': contentLanguage.invalid
+            }" />
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group">
+                <label for="contentLanguage">About language? (for instance: videos about Spanish in English, choose Spanish)</label>
+                <label>Only fill in if the languages differ</label>
+                <input type="text" class="form-control" [(ngModel)]="content.targetLanguage" name="contentTargetLanguage" #contentTargetLanguage="ngModel" [ngClass]="{
+                'is-invalid': contentTargetLanguage.invalid
+            }" />
+            </div>
+        </div>
+        <button class="btn btn-success" [disabled]="!contentEditForm.valid" type="submit" (click)="onSubmit()">Save</button>
+    </form>
+</div>
+
+<!-- 
+    export interface Content {
+    id: number;
+    name: string;
+    tags: string[];
+    inProduction: boolean;
+    platforms: Map<string,string>
+    contentInterface: ContentInterface
+    contentType: ContentType
+    websiteLink?: string | null;
+    // socialLinks?: string[]
+    language: string;
+    targetLanguage?: string;
+  }
+  export enum ContentInterface {
+    Video = "Video", 
+    Audio = "Audio", 
+    Either = "Both audio and video"
+  }
+  export enum ContentType{
+    Podcast = "Podcast", 
+    Movie = "Movie", 
+    Serie = "Serie", 
+    Videos = "Videos"
+  }
+ -->
