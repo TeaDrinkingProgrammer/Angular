@@ -12,3 +12,25 @@
 
 <p> The platform is free to use, the only thing we ask of users is that they submit some content in their native language.</p>
 <p>It could be anything: a popular tv serie, some fun or popular movies, youtube videos: you name it!</p>
+
+<h2>Entities</h2>
+<p>Content</p>
+<ul>
+    <li>id: Number</li>
+    <li>name: string</li>
+    <li>tags: string[] (tags that help users get an idea of what the content is)</li>
+    <li>inProduction: boolean ( is the content in production, or are there no new episodes anymore)</li>
+    <li>platforms: {{'[{'}}name: string, link: string{{'}]'}} (links to platforms like Youtube, Spotify etc.)</li>
+    <li>contentInterface: ContentInterface (how do you consume the content? Enumeration with the following options:)</li>
+    <ul>
+        <li>Video,Audio,Either</li>
+    </ul>
+    <li>contentType: ContentType (What kind of content is it? Enumeration with the following options:)</li>
+    <ul>
+        <li>Podcast,Movie,Serie,Videos (the idea is that a podcast can be both video and audio e.g on Youtube</li>
+    </ul>
+    <li>websiteLink?: string (link to a website, if there is one)</li>
+    <li>language: string (Which language is spoken in the content?)</li>
+    <li>targetLanguage?: string (only necessary if for instance the video is about Spanish but in English. Then language is English, target language is Spanish)</li>
+</ul>
+<img src="/assets/document.png" />
