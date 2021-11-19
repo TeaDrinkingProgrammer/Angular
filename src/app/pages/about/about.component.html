@@ -1,8 +1,15 @@
-<h1>About this website</h1>
-<p> This website is about helping you to find content to aid your language learning journey. You may have asked yourself this question: </p>
+<div class="d-flex justify-content-center">
+    <h1>About this website</h1>
+</div>
+<p> This project is a resource for language learners to find content (content being anything that can be watched and/or listened to) to aid their language learning</p>
+<p></p>
+<div class="d-flex justify-content-center">
+    <h2>Content Finder</h2>
+</div>
+<p> Content Finder is about helping you to find content to aid your language learning journey. You may have asked yourself this question: </p>
 <p> "I want to watch some series, movies, videos (or listen to some podcasts etc.) to practise my target language, but I cant find any."</p>
-<p> This website is here to help. We host a crowdsourced list of content you can watch/ listen to to practise any language and have features relevant to language learning</p>
-<p>Think of it like Rotten Tomatoes or IMDB for languages learners</p>
+<p> Content Finder is here to help. We host a crowdsourced list of content you can watch/ listen to to practise any language and have features relevant to language learning</p>
+<p>Think of it like Rotten Tomatoes or IMDB for languages learning</p>
 <p> Some of the features include:</p>
 <ul>
     <li>Reviews where fellow learners can share how a serie/movie etc. has helped them learn their language</li>
@@ -12,3 +19,27 @@
 
 <p> The platform is free to use, the only thing we ask of users is that they submit some content in their native language.</p>
 <p>It could be anything: a popular tv serie, some fun or popular movies, youtube videos: you name it!</p>
+
+<h2>Entities</h2>
+<p>Content</p>
+<ul>
+    <li>id: Number</li>
+    <li>name: string</li>
+    <li>tags: string[]</li>
+    <li>inProduction: boolean</li>
+    <li>platforms: Map&lt;string,string&gt;</li>
+    <li>contentInterface: ContentInterface (enumeration with the following items:</li>
+    <ul>
+        <li>Video,Audio,Either</li>
+    </ul>
+    <li>contentType: ContentType (enumeration with the following items:</li>
+    <ul>
+        <li>Podcast,Movie,Serie,Videos (the idea is that a podcast can be both video and audio e.g on Youtube</li>
+    </ul>
+    <li>websiteLink?: string</li>
+    <li>targetLanguage?: string (only necessary if for instance the video is about Spanish but in English. Then language is English, target language is Spanish)</li>
+</ul>
+
+<div class="d-flex justify-content-center">
+    <a class="btn btn-primary" routerLink="/content">Go to the list!</a>
+</div>
