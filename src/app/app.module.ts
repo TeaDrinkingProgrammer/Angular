@@ -11,7 +11,7 @@ import { ContentEditComponent } from './pages/content/content-edit/content-edit.
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {TagInputModule } from 'ngx-chips';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { RouterTestingModule } from "@angular/router/testing";
+// import { RouterTestingModule } from "@angular/router/testing";
 @NgModule({
   declarations: [
     AppComponent,
@@ -28,7 +28,7 @@ import { RouterTestingModule } from "@angular/router/testing";
     FormsModule,
     TagInputModule,
     BrowserAnimationsModule,
-    RouterTestingModule
+    // RouterTestingModule
   ],
   providers: [],
   bootstrap: [AppComponent]

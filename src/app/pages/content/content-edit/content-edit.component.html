@@ -14,12 +14,13 @@
         <div class="form-row">
             <div class="form-group">
                 <label for="contentTags">Tags</label>
-                <tag-input [ngModel]="content.tags" (ngModelChange)="tagNgModelChange($event)" name="contentTags" #contentTags.value="ngModel" [ngClass]="{
+                <tag-input [ngModel]="content.tags" (onRemove)="onTagRemoved($event)" (onAdd)="onTagAdded($event)" name="contentTags" #contentTags.value="ngModel" [ngClass]="{
                 'is-invalid': contentName.invalid
             }" required>
                 </tag-input>
 
             </div>
+            <!-- (ngModelChange)="tagNgModelChange($event)" -->
         </div>
         <div class="form-row">
             <div class="d-flex flex-column form-group">
