@@ -7,7 +7,7 @@ import { Content, ContentInterface, ContentType } from './content.model';
 
 export class ContentRepoService {
   private contentList : Content[];
-  private contentIdCounter : number = 2;
+  private contentIdCounter : number = 5;
   constructor() {
     this.contentList = [
       {id: 0, name: "No Hay Tos",
@@ -37,14 +37,6 @@ export class ContentRepoService {
     contentType: ContentType.Videos,
     language: "Spanish"
   },
-  {id: 3, name: "Spanish after hours",
-  tags: ["native", "spanish from Spain","for learners","comprehensible input","roleplay"],
-  inProduction: true,
-  platforms: [{name: "Youtube",link: "https://www.youtube.com/channel/UCfG2VhlQgy5bHGmkpeKcjVA"}],
-  contentInterface: ContentInterface.Video,
-  contentType: ContentType.Videos,
-  language: "Spanish"
-},
 {id: 4, name: "Easy Spanish",
   tags: ["native", "mixed regions","for learners","subtitles","voxpop","street interviews"],
   inProduction: true,
@@ -65,8 +57,12 @@ export class ContentRepoService {
 
 ]
    }
-   setOption(id : number, value : any) {      
-    this.contentList[id] = value;  
+   setOption(id : number, value : Content) {      
+    this.contentList.forEach((item) => {
+      if(item.id === id){
+        item = value
+      }
+    });  
   }  
   pushItem(item : Content){
     //TODO: how to make this observable

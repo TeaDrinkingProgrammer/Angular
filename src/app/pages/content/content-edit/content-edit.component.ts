@@ -90,12 +90,6 @@ export class ContentEditComponent implements OnInit {
     this.content.platforms.splice(index,1);
     console.log(this.content.platforms)
   }
-  tagNgModelChange(event : any){
-    // this.content.tagsvalue.value
-    console.log(event)
-    event[event.length-1] = event[event.length-1].value
-    this.content.tags = event;
-  }
   platformChange(event: string,platform : any,isKey : boolean){
     console.log(this.content.platforms)
     if(isKey){
@@ -114,6 +108,22 @@ export class ContentEditComponent implements OnInit {
     console.log("platform: ",platform)
     console.log(this.content.platforms)
     console.log(this.content)
+  }
+  onTagRemoved(event : any){
+    console.log("event:", event)
+    console.log(event)
+    // this.content.tags[event.length-1] = event[event.length-1].value
+    // this.content.tags = this.content.tags.filter(e => e !== event.value)
+    var index = this.content.tags.indexOf(event);
+    if (index !== -1) {
+      this.content.tags.splice(index, 1);
+    }
+    // this.content.tags = event;
+    console.log(this.content.tags)
+  }
+  onTagAdded(event : any){
+    this.content.tags.push(event.value);
+    console.log(this.content.tags)
   }
   getEntities() : any {
     // this will return [['first', { text: 'abc' }], ... ]
