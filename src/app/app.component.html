@@ -1,19 +1,23 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container-fluid">
         <a class="navbar-brand" href="#">Navbar</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" aria-expanded="false" aria-label="Toggle navigation"
+            (click)="isCollapsed = !isCollapsed">
         <span class="navbar-toggler-icon"></span>
       </button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <div class="collapse navbar-collapse" id="navbarSupportedContent" [ngbCollapse]="isCollapsed">
             <ul ngbNav class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li ngbNavItem class="nav-item">
                     <a class="nav-link" routerLink="">Home</a>
                 </li>
                 <li ngbNavItem class="nav-item">
-                    <a class="nav-link" routerLink="/content">Content</a>
+                    <a class="nav-link" routerLink="content">Content</a>
                 </li>
                 <li ngbNavItem class="nav-item">
-                    <a class="nav-link" routerLink="/new-content">Add Content</a>
+                    <a class="nav-link" routerLink="new-content">Add Content</a>
+                </li>
+                <li ngbNavItem class="nav-item">
+                    <a class="nav-link" routerLink="about">About</a>
                 </li>
             </ul>
         </div>
@@ -22,6 +26,6 @@
 <main class="container-lg py-2 h-100">
     <router-outlet></router-outlet>
 </main>
-<footer class="footer d-flex justify-content-center bg-light p-2 mt-auto">
+<footer class="footer d-flex justify-content-center bg-light p-2 mt-auto align-items-center">
     <p class="m-0 p-0"> By Stijn van Houwelingen</p>
 </footer>

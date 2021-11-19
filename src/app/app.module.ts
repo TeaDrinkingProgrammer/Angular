@@ -3,7 +3,6 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { IndexComponent } from './index/index.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ContentListComponent } from './pages/content/content-list/content-list.component';
 import { ContentDetailComponent } from './pages/content/content-detail/content-detail.component';
@@ -12,15 +11,14 @@ import { ContentEditComponent } from './pages/content/content-edit/content-edit.
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {TagInputModule } from 'ngx-chips';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { RouterTestingModule } from "@angular/router/testing";
 @NgModule({
   declarations: [
-    AppComponent,
-    IndexComponent,
     AppComponent,
     ContentListComponent,
     ContentDetailComponent,
     AboutComponent,
-    ContentEditComponent
+    ContentEditComponent,
   ],
   imports: [
     BrowserModule,
@@ -29,7 +27,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     ReactiveFormsModule,
     FormsModule,
     TagInputModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
