@@ -3,10 +3,10 @@ export interface Content {
     name: string;
     tags: string[];
     inProduction: boolean;
-    platforms: Map<string,string>
-    contentInterface: ContentInterface
-    contentType: ContentType
-    websiteLink?: string | null;
+    platforms: Platform[];
+    contentInterface: ContentInterface;
+    contentType: ContentType;
+    websiteLink?: string;
     language: string;
     targetLanguage?: string;
   }
@@ -21,4 +21,8 @@ export interface Content {
     Movie = "Movie", 
     Serie = "Serie", 
     Videos = "Videos"
+  }
+  export interface Platform {
+    name: string,
+    link: string
   }

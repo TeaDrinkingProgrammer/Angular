@@ -1,10 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit, Output } from '@angular/core';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { TagInputForm} from 'ngx-chips';
-import { Observable, ObservableNotification, of, Subscription, switchMap, tap } from 'rxjs';
+import {Observable, ObservableNotification, of, Subscription, switchMap, tap } from 'rxjs';
 import { ContentRepoService } from '../content-repo.service';
-import { ContentInterface, ContentType, Content } from '../content.model';
+import { ContentInterface, ContentType, Content, Platform } from '../content.model';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 interface Tag {
   value: string,
@@ -34,7 +34,7 @@ export class ContentEditComponent implements OnInit {
       name: 'Name here',
       tags: [''],
       inProduction: false,
-      platforms: new Map([["",""]]),
+      platforms: [],
       contentInterface: ContentInterface.Either,
       contentType: ContentType.Videos,
       language: "English",
@@ -52,7 +52,7 @@ export class ContentEditComponent implements OnInit {
               name: 'Name here',
               tags: [],
               inProduction: false,
-              platforms: new Map([["",""]]),
+              platforms: [],
               contentInterface: ContentInterface.Either,
               contentType: ContentType.Videos,
               language: "English",
@@ -82,14 +82,38 @@ export class ContentEditComponent implements OnInit {
     }
   }
   addPlatformFields() {
-    this.content.platforms.get("key");
-    console.log(this.content.platforms)
-    return this.content.platforms.set('','');
+    console.log(this.content.platforms);
+    this.content.platforms.push({name: "",link: ""});
+    console.log(this.content.platforms);
   }
-  deletePlatformField(key : string){
-    this.content.platforms.delete(key);
-    console.log(key)
+  deletePlatformField(index : number){
+    this.content.platforms.splice(index,1);
     console.log(this.content.platforms)
+  }
+  tagNgModelChange(event : any){
+    // this.content.tagsvalue.value
+    console.log(event)
+    event[event.length-1] = event[event.length-1].value
+    this.content.tags = event;
+  }
+  platformChange(event: string,platform : any,isKey : boolean){
+    console.log(this.content.platforms)
+    if(isKey){
+     let arrayItem =  this.content.platforms.find((item) => item.name === platform.name);
+     if(arrayItem != undefined){
+      arrayItem.name = event;
+     }
+    } else {
+     let arrayItem = this.content.platforms.find((item) => item.link === platform.link)
+      if(arrayItem != undefined){
+        arrayItem.link = event;
+       }
+    }
+    console.log("log items:")
+    console.log("event: ", event)
+    console.log("platform: ",platform)
+    console.log(this.content.platforms)
+    console.log(this.content)
   }
   getEntities() : any {
     // this will return [['first', { text: 'abc' }], ... ]

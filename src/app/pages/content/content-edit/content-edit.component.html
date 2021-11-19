@@ -14,7 +14,7 @@
         <div class="form-row">
             <div class="form-group">
                 <label for="contentTags">Tags</label>
-                <tag-input [(ngModel)]="tags" name="contentTags" #contentTags="ngModel" [ngClass]="{
+                <tag-input [ngModel]="content.tags" (ngModelChange)="tagNgModelChange($event)" name="contentTags" #contentTags.value="ngModel" [ngClass]="{
                 'is-invalid': contentName.invalid
             }" required>
                 </tag-input>
@@ -35,12 +35,12 @@
         <div class="form-row">
             <div class="form-group col-9">
                 <label for="contentPlatform">Platforms</label>
-                <div class="d-flex flex-column form-group" *ngFor="let platform of content.platforms | keyvalue; let i = index">
+                <div class="d-flex flex-column form-group" *ngFor="let platform of content.platforms; let i = index">
                     <div>
-                        <input type="text" class="form-control" [(ngModel)]="platform.key" name="contentPlaformName{{i}}" #contentPlaformName{{i}}="ngModel" required/>
-                        <input type="text" class="form-control" [(ngModel)]="platform.value" name="contentPlaformLink{{i}}" #contentPlaformLink{{i}}="ngModel" required/>
+                        <input type="text" class="form-control" [ngModel]="platform.name" (ngModelChange)="platformChange($event,platform,true)" name="contentPlaformName{{i}}" #contentPlaformName{{i}}="ngModel" required/>
+                        <input type="text" class="form-control" [ngModel]="platform.link" (ngModelChange)="platformChange($event,platform,false)" name="contentPlaformLink{{i}}" #contentPlaformLink{{i}}="ngModel" required/>
                     </div>
-                    <button class="align-self-end btn btn-danger" (click)="deletePlatformField(platform.key)">Delete Platform</button>
+                    <button class="align-self-end btn btn-danger" (click)="deletePlatformField(i)">Delete Platform</button>
                 </div>
             </div>
         </div>

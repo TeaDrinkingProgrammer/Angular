@@ -14,32 +14,33 @@ export class ContentRepoService {
         tags: ["native","south american spanish","real conversation", "for learners"], 
         inProduction: true,
         language: "Spanish", 
-        platforms: new Map([["Spotify","https://open.spotify.com/show/24Zc3LPwIH1nnqUbhWY2T0"],["Apple Music","https://podcasts.apple.com/us/podcast/no-hay-tos-real-mexican-spanish/id1360162037"]]),
+        platforms: [{name: "Spotify",link: "https://open.spotify.com/show/24Zc3LPwIH1nnqUbhWY2T0"},{name: "Apple Music",link: "https://podcasts.apple.com/us/podcast/no-hay-tos-real-mexican-spanish/id1360162037"}],
         contentInterface: ContentInterface.Either,
         contentType: ContentType.Podcast,
         websiteLink: "https://www.nohaytospodcast.com/"
       },
+      
       {id: 1, name: "Spain Revealed",
       tags: ["spain", "culture","madrid"],
       inProduction: true,
-      platforms: new Map([["Youtube","https://www.youtube.com/c/JamesBlick/"]]),
+      platforms: [{name: "Youtube",link: "https://www.youtube.com/c/JamesBlick/"}],
       contentInterface: ContentInterface.Video,
       contentType: ContentType.Videos,
       language: "English",
       targetLanguage: "Spanish"
     },
     {id: 2, name: "Spanish after hours",
-    tags: ["native", "spanish form Spain","for learners","comprehensible input","roleplay"],
+    tags: ["native", "spanish from Spain","for learners","comprehensible input","roleplay"],
     inProduction: true,
-    platforms: new Map([["Youtube","https://www.youtube.com/channel/UCfG2VhlQgy5bHGmkpeKcjVA"]]),
+    platforms: [{name: "Youtube",link: "https://www.youtube.com/channel/UCfG2VhlQgy5bHGmkpeKcjVA"}],
     contentInterface: ContentInterface.Video,
     contentType: ContentType.Videos,
     language: "Spanish"
   },
   {id: 3, name: "Spanish after hours",
-  tags: ["native", "spanish form Spain","for learners","comprehensible input","roleplay"],
+  tags: ["native", "spanish from Spain","for learners","comprehensible input","roleplay"],
   inProduction: true,
-  platforms: new Map([["Youtube","https://www.youtube.com/channel/UCfG2VhlQgy5bHGmkpeKcjVA"]]),
+  platforms: [{name: "Youtube",link: "https://www.youtube.com/channel/UCfG2VhlQgy5bHGmkpeKcjVA"}],
   contentInterface: ContentInterface.Video,
   contentType: ContentType.Videos,
   language: "Spanish"
@@ -47,7 +48,7 @@ export class ContentRepoService {
 {id: 4, name: "Easy Spanish",
   tags: ["native", "mixed regions","for learners","subtitles","voxpop","street interviews"],
   inProduction: true,
-  platforms: new Map([["Youtube","https://www.youtube.com/channel/UCAL4AMMMXKxHDu3FqZV6CbQ"]]),
+  platforms: [{name: "Youtube",link: "https://www.youtube.com/channel/UCAL4AMMMXKxHDu3FqZV6CbQ"}],
   contentInterface: ContentInterface.Video,
   contentType: ContentType.Videos,
   language: "Spanish"
@@ -55,11 +56,12 @@ export class ContentRepoService {
 {id: 5, name: "Bart de Pau",
   tags: ["native", "mixed regions","for learners","subtitles","language course","culture"],
   inProduction: true,
-  platforms: new Map([["Youtube","https://www.youtube.com/c/LearndutchOrg"]]),
+  platforms: [{name: "Youtube",link: "https://www.youtube.com/c/LearndutchOrg"}],
   contentInterface: ContentInterface.Video,
   contentType: ContentType.Videos,
   language: "Dutch"
 }
+
 
 ]
    }

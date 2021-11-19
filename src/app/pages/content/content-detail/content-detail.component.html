@@ -11,8 +11,11 @@
             <li><span class="px-2">Tags:</span> <span class="badge badge-primary mx-1 p-2" *ngFor="let tag of content$?.tags">{{tag}}</span></li>
             <li><span class="px-2">Type:</span> <span>{{content$?.contentType}}</span></li>
             <li><span class="px-2">In Production:</span> <span>{{content$?.inProduction == true ? "Yes" : "No"}}</span></li>
-            <li><span class="px-2">Platforms:</span> <span *ngFor="let platform of content$?.platforms | keyvalue"><a target="_blank" href="{{platform.value}}">{{platform.key}}</a></span></li>
+            <li><span class="px-2">Platforms:</span> <span *ngFor="let platform of content$?.platforms"><a target="_blank" href="{{platform.link}}">{{platform.name}}</a></span></li>
             <li *ngIf="content$?.websiteLink"><span class="px-2">Link:</span> <a href="{{content$?.websiteLink}}" target="_blank">Link to {{content$?.name}} website</a></li>
         </ul>
+        <div class="d-flex justify-content-center">
+            <a class="btn btn-primary" routerLink="./edit">Edit</a>
+        </div>
     </div>
 </div>
