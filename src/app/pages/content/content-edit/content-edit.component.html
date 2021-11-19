@@ -29,6 +29,9 @@
             }" />
             </div>
         </div>
+        <!-- <div class="items" *ngFor="let item of this.content.platforms.values()">
+            <input type="text" [(ngModel)]="item" />
+        </div> -->
         <div class="form-row">
             <div class="form-group col-9">
                 <label for="contentPlatform">Platforms</label>
@@ -41,6 +44,18 @@
                 </div>
             </div>
         </div>
+        <!-- <div class="form-row">
+            <div class="form-group col-9">
+                <label for="contentPlatform">Platforms</label>
+                <div class="d-flex flex-column form-group" *ngFor="let platform of getEntities(); let i = index">
+                    <div>
+                        <input type="text" class="form-control" [(ngModel)]="platform" name="contentPlaformName{{i}}" #contentPlaformName{{i}}="ngModel" required/>
+                        <input type="text" class="form-control" [(ngModel)]="platform" name="contentPlaformLink{{i}}" #contentPlaformLink{{i}}="ngModel" required/>
+                    </div>
+                    <button class="align-self-end btn btn-danger" (click)="deletePlatformField(platform.key)">Delete Platform</button>
+                </div>
+            </div>
+        </div> -->
         <div class="form-group">
             <button type="button" (click)="addPlatformFields()" class="btn btn-primary">Add Platform</button>
         </div>

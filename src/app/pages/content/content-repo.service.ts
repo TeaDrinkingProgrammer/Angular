@@ -11,15 +11,14 @@ export class ContentRepoService {
   constructor() {
     this.contentList = [
       {id: 0, name: "No Hay Tos",
-        tags: ["native","real conversation", "for learners"], 
+        tags: ["native","south american spanish","real conversation", "for learners"], 
         inProduction: true,
         language: "Spanish", 
         platforms: new Map([["Spotify","https://open.spotify.com/show/24Zc3LPwIH1nnqUbhWY2T0"],["Apple Music","https://podcasts.apple.com/us/podcast/no-hay-tos-real-mexican-spanish/id1360162037"]]),
         contentInterface: ContentInterface.Either,
         contentType: ContentType.Podcast,
         websiteLink: "https://www.nohaytospodcast.com/"
-      }
-      ,
+      },
       {id: 1, name: "Spain Revealed",
       tags: ["spain", "culture","madrid"],
       inProduction: true,
@@ -28,7 +27,41 @@ export class ContentRepoService {
       contentType: ContentType.Videos,
       language: "English",
       targetLanguage: "Spanish"
-    }]
+    },
+    {id: 2, name: "Spanish after hours",
+    tags: ["native", "spanish form Spain","for learners","comprehensible input","roleplay"],
+    inProduction: true,
+    platforms: new Map([["Youtube","https://www.youtube.com/channel/UCfG2VhlQgy5bHGmkpeKcjVA"]]),
+    contentInterface: ContentInterface.Video,
+    contentType: ContentType.Videos,
+    language: "Spanish"
+  },
+  {id: 3, name: "Spanish after hours",
+  tags: ["native", "spanish form Spain","for learners","comprehensible input","roleplay"],
+  inProduction: true,
+  platforms: new Map([["Youtube","https://www.youtube.com/channel/UCfG2VhlQgy5bHGmkpeKcjVA"]]),
+  contentInterface: ContentInterface.Video,
+  contentType: ContentType.Videos,
+  language: "Spanish"
+},
+{id: 4, name: "Easy Spanish",
+  tags: ["native", "mixed regions","for learners","subtitles","voxpop","street interviews"],
+  inProduction: true,
+  platforms: new Map([["Youtube","https://www.youtube.com/channel/UCAL4AMMMXKxHDu3FqZV6CbQ"]]),
+  contentInterface: ContentInterface.Video,
+  contentType: ContentType.Videos,
+  language: "Spanish"
+},
+{id: 5, name: "Bart de Pau",
+  tags: ["native", "mixed regions","for learners","subtitles","language course","culture"],
+  inProduction: true,
+  platforms: new Map([["Youtube","https://www.youtube.com/c/LearndutchOrg"]]),
+  contentInterface: ContentInterface.Video,
+  contentType: ContentType.Videos,
+  language: "Dutch"
+}
+
+]
    }
    setOption(id : number, value : any) {      
     this.contentList[id] = value;  

@@ -7,7 +7,6 @@ export interface Content {
     contentInterface: ContentInterface
     contentType: ContentType
     websiteLink?: string | null;
-    // socialLinks?: string[]
     language: string;
     targetLanguage?: string;
   }

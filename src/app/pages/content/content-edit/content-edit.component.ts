@@ -65,6 +65,7 @@ export class ContentEditComponent implements OnInit {
     ).subscribe((content) => {
       this.content = content;
     })
+    console.log(this.getEntities())
   }
   onSubmit(): void{
     if(this.content.id === -1){
@@ -89,5 +90,11 @@ export class ContentEditComponent implements OnInit {
     this.content.platforms.delete(key);
     console.log(key)
     console.log(this.content.platforms)
+  }
+  getEntities() : any {
+    // this will return [['first', { text: 'abc' }], ... ]
+    // and after mapping we get [{ text: 'abc' }, ...]
+    // return Array.from(this.content.platforms.entries()).map(item => item[1]);
+    return Array.from(this.content.platforms.entries());
   }
 }
