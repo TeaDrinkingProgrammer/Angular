@@ -1,31 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable, switchMap, tap } from 'rxjs';
-import { ContentRepoService } from '../content-repo.service';
+import { ContentService } from '../content.service';
 import { Content, ContentInterface, ContentType } from '../content.model';
-// interface Content {
-//   id: number;
-//   name: string;
-//   tags: string[];
-//   inProduction: boolean;
-//   platforms: string [][]
-//   contentInterface: ContentInterface
-//   contentType: ContentType
-//   websiteLink?: string | null;
-//   // socialLinks?: string[]
-//   language: string;
-//   targetLanguage?: string;
-// }
-// enum ContentInterface {
-//   Video = "video", 
-//   Audio = "audio", 
-//   Either = "both audio and video"
-// }
-// enum ContentType{
-//   Podcast = "Podcast", 
-//   Movie = "Movie", 
-//   Serie = "Serie", 
-//   Videos = "Videos"
-// }
 @Component({
   selector: 'app-user-list',
   templateUrl: './content-list.component.html',
@@ -34,8 +10,8 @@ import { Content, ContentInterface, ContentType } from '../content.model';
 
 export class ContentListComponent implements OnInit {
   contentList?: Observable<Content[]>;
-  private contentService : ContentRepoService;
-  constructor(contentRepo : ContentRepoService) {
+  private contentService : ContentService;
+  constructor(contentRepo : ContentService) {
     this.contentService = contentRepo;
    }
 

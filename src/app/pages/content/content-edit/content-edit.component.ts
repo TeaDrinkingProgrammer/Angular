@@ -1,9 +1,9 @@
-import { Component, Input, OnInit, Output } from '@angular/core';
+import { Component, OnInit} from '@angular/core';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
-import { ActivatedRoute, ParamMap, Router } from '@angular/router';
+import { ActivatedRoute, ParamMap, Router, RouterModule } from '@angular/router';
 import { TagInputForm} from 'ngx-chips';
 import {Observable, ObservableNotification, of, Subscription, switchMap, tap } from 'rxjs';
-import { ContentRepoService } from '../content-repo.service';
+import { ContentService } from '../content.service';
 import { ContentInterface, ContentType, Content, Platform } from '../content.model';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 interface Tag {
@@ -18,19 +18,19 @@ interface Tag {
 
 export class ContentEditComponent implements OnInit {
   private route : ActivatedRoute;
-  private contentService: ContentRepoService
+  private contentService: ContentService
   private subscription? : Subscription
   public content : Content
   public contentInterfaces : string[] = Object.keys(ContentInterface)
   public contentTypes : string[] = Object.keys(ContentType)
   public tags : Tag[] = []
   private router : Router
-  constructor(contentRepo : ContentRepoService,route : ActivatedRoute, router : Router) {
+  constructor(contentRepo : ContentService,route : ActivatedRoute, router : Router) {
     this.contentService = contentRepo;
     this.route = route;
     this.router = router;
     this.content = ({
-      id: 0,
+      id: -1,
       name: 'Name here',
       tags: [''],
       inProduction: false,
@@ -65,7 +65,6 @@ export class ContentEditComponent implements OnInit {
     ).subscribe((content) => {
       this.content = content;
     })
-    console.log(this.getEntities())
   }
   onSubmit(): void{
     if(this.content.id === -1){
