@@ -12,6 +12,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {TagInputModule } from 'ngx-chips';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from "@angular/router/testing";
+import { UserListComponent } from './pages/user/user-list/user-list.component';
+import { UserDetailComponent } from './pages/user/user-detail/user-detail.component';
+import { UserEditComponent } from './pages/user/user-edit/user-edit.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -19,6 +22,9 @@ import { RouterTestingModule } from "@angular/router/testing";
     ContentDetailComponent,
     AboutComponent,
     ContentEditComponent,
+    UserListComponent,
+    UserDetailComponent,
+    UserEditComponent,
   ],
   imports: [
     BrowserModule,

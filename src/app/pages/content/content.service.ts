@@ -5,9 +5,8 @@ import { Content, ContentInterface, ContentType } from './content.model';
   providedIn: 'root'
 })
 
-export class ContentRepoService {
+export class ContentService {
   private contentList : Content[];
-  private contentIdCounter : number = 5;
   constructor() {
     this.contentList = [
       {id: 0, name: "No Hay Tos",
@@ -37,7 +36,7 @@ export class ContentRepoService {
     contentType: ContentType.Videos,
     language: "Spanish"
   },
-{id: 4, name: "Easy Spanish",
+{id: 3, name: "Easy Spanish",
   tags: ["native", "mixed regions","for learners","subtitles","voxpop","street interviews"],
   inProduction: true,
   platforms: [{name: "Youtube",link: "https://www.youtube.com/channel/UCAL4AMMMXKxHDu3FqZV6CbQ"}],
@@ -45,7 +44,7 @@ export class ContentRepoService {
   contentType: ContentType.Videos,
   language: "Spanish"
 },
-{id: 5, name: "Bart de Pau",
+{id: 4, name: "Bart de Pau",
   tags: ["native", "mixed regions","for learners","subtitles","language course","culture"],
   inProduction: true,
   platforms: [{name: "Youtube",link: "https://www.youtube.com/c/LearndutchOrg"}],
@@ -66,9 +65,8 @@ export class ContentRepoService {
   }  
   pushItem(item : Content){
     //TODO: how to make this observable
-    item.id = this.contentIdCounter;
+    item.id = this.contentList.length;
     this.contentList.push(item);
-    this.contentIdCounter++;
   }
   getForId(id : number) : Observable<Content>{
     return from(this.contentList).pipe(
