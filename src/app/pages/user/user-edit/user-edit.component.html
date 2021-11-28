@@ -1,8 +1,8 @@
 <div class="d-flex flex-column">
     <h1 class="m-auto py-2">Edit</h1>
 </div>
-<div class="d-flex justify-content-center col-7 mx-auto">
-    <form class="mx-auto" #contentEditForm="ngForm" name="editForm" (ngSubmit)="contentEditForm.form.valid && onSubmit()">
+<div class="d-flex flex-column justify-content-center col-5 mx-auto">
+    <form class="d-flex justify-content-center flex-column" #contentEditForm="ngForm" name="editForm" (ngSubmit)="contentEditForm.form.valid && onSubmit()">
         <div class="form-row">
             <div class="form-group">
                 <label for="userFirstName">First name</label>
@@ -22,7 +22,10 @@
                 'is-invalid': userEmail.invalid
             }" required/>
             </div>
+            <div class="form-group w-100">
+                <button class="btn btn-success d-block" [disabled]="!contentEditForm.valid" type="submit" (click)="onSubmit()">Save</button>
+            </div>
         </div>
-        <button class="btn btn-success" [disabled]="!contentEditForm.valid" type="submit" (click)="onSubmit()">Save</button>
+
     </form>
 </div>

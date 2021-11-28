@@ -18,7 +18,8 @@ const routes: Routes = [
   { path: 'user',pathMatch:'full',component: UserListComponent}, 
   { path: 'user/:id',pathMatch:'full',component: UserDetailComponent}, 
   { path: 'user/:id/edit',pathMatch:'full',component: UserEditComponent}, 
-  { path:'about',pathMatch:'full',component: AboutComponent }
+  { path:'about',pathMatch:'full',component: AboutComponent },
+  { path:'new-user',pathMatch:'full',component: UserEditComponent},
 ];
 
 @NgModule({

@@ -34,4 +34,12 @@ export class UserService {
   getAll() : Observable<User[]> {  
     return of(this.userList);  
   }  
+  deleteForId(id : number) : boolean{
+    this.userList = this.userList.filter(function(ele){ 
+      console.log(ele.id != id)
+      return ele.id != id; 
+  })
+  console.log("array: ",this.userList)
+    return true
+  }
 }

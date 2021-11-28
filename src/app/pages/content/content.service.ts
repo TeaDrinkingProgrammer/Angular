@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { delay, filter, from, Observable, of, take } from 'rxjs';
+import { delay, filter, from, Observable, of, Subject, switchMap, take } from 'rxjs';
 import { Content, ContentInterface, ContentType } from './content.model';
 @Injectable({
   providedIn: 'root'
@@ -35,7 +35,7 @@ export class ContentService {
     contentInterface: ContentInterface.Video,
     contentType: ContentType.Videos,
     language: "Spanish"
-  },
+    },
 {id: 3, name: "Easy Spanish",
   tags: ["native", "mixed regions","for learners","subtitles","voxpop","street interviews"],
   inProduction: true,
@@ -51,10 +51,7 @@ export class ContentService {
   contentInterface: ContentInterface.Video,
   contentType: ContentType.Videos,
   language: "Dutch"
-}
-
-
-]
+}]
    }
    setOption(id : number, value : Content) {      
     this.contentList.forEach((item) => {
@@ -73,6 +70,14 @@ export class ContentService {
       filter((item) => item.id === id),
       take(1)
     )
+  }
+  deleteForId(id : number) : boolean{
+    this.contentList = this.contentList.filter(function(ele){ 
+      console.log(ele.id != id)
+      return ele.id != id; 
+  })
+  console.log("array: ",this.contentList)
+    return true
   }
   
   getAll() : Observable<Content[]> {  
