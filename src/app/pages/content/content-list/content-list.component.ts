@@ -9,7 +9,7 @@ import { Content, ContentInterface, ContentType } from '../content.model';
 })
 
 export class ContentListComponent implements OnInit {
-  contentList?: Observable<Content[]>;
+  contentList$?: Observable<Content[]>;
   private contentService : ContentService;
   constructor(contentRepo : ContentService) {
     this.contentService = contentRepo;
@@ -17,10 +17,17 @@ export class ContentListComponent implements OnInit {
 
   ngOnInit(): void {
     //doesn't work, changes all to one when going from 1 contentdetail to contentlist
-    this.contentList = this.contentService.getAll().pipe(
+    this.contentList$ = this.contentService.getAll().pipe(
       tap(console.log)
     );
-    console.log(this.contentList)
+  }
+  deleteContent(id: number){
+    console.log("button click", id)
+    this.contentService.deleteForId(id);
+    //TODO is this correct?
+    this.contentList$ = this.contentService.getAll().pipe(
+      tap(console.log)
+    );
   }
 
 }

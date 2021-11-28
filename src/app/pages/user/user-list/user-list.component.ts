@@ -17,5 +17,13 @@ export class UserListComponent implements OnInit {
       tap(console.log)
     );
   }
+  deleteContent(id: number){
+    console.log("button click", id)
+    this.userService.deleteForId(id);
+    //TODO is this correct?
+    this.users$ = this.userService.getAll().pipe(
+      tap(console.log)
+    );
+  }
 
 }
