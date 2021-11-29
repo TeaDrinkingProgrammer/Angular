@@ -1,16 +1,10 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import {
-  ActivatedRoute,
-  convertToParamMap,
-  Router,
-  RouterModule,
-} from '@angular/router';
+import { ActivatedRoute, convertToParamMap } from '@angular/router';
 import { of, Subscription } from 'rxjs';
 import { ContentService } from '../content.service';
 import { ContentInterface, ContentType } from '../content.model';
 import { ContentDetailComponent } from './content-detail.component';
 import { Directive, HostListener, Input } from '@angular/core';
-import { FormsModule } from '@angular/forms';
 
 @Directive({ selector: '[routerLink]' })
 export class RouterLinkStubDirective {

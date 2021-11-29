@@ -1,10 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import {
-  ActivatedRoute,
-  convertToParamMap,
-  Router,
-  RouterModule,
-} from '@angular/router';
+import { ActivatedRoute, convertToParamMap, Router } from '@angular/router';
 import { of } from 'rxjs';
 import { ContentInterface, ContentType, Content } from '../content.model';
 import { ContentService } from '../content.service';
@@ -44,9 +39,6 @@ describe('ContentEditComponent', () => {
       ],
       imports: [FormsModule],
     }).compileComponents();
-    // contentServiceSpy = TestBed.inject(
-    //   ContentService
-    // ) as jasmine.SpyObj<ContentService>;
     fixture = TestBed.createComponent(ContentEditComponent);
     component = fixture.componentInstance;
   });
