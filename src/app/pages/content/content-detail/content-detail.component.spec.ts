@@ -48,8 +48,7 @@ describe('ContentDetailComponent', () => {
   afterAll(() => {
     fixture.destroy();
   });
-  //TODO fix this
-  fit('should create', () => {
+  xit('should create', () => {
     const stubValue = {
       id: 1,
       name: 'Spain Revealed',
