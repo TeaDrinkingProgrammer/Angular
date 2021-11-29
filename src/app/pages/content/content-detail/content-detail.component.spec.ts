@@ -42,7 +42,7 @@ describe('ContentDetailComponent', () => {
   afterAll(() => {
     fixture.destroy();
   });
-  xit('should create', () => {
+  it('should create', () => {
     const stubValue = {
       id: 1,
       name: 'Spain Revealed',

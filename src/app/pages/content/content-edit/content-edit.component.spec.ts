@@ -43,7 +43,7 @@ describe('ContentEditComponent', () => {
     component = fixture.componentInstance;
   });
 
-  fit('should create', () => {
+  it('should create', () => {
     contentServiceSpy.getForId.and.returnValue(
       of({
         id: 1,
