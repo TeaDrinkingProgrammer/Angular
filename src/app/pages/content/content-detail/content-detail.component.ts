@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute,ParamMap, RouterModule  } from '@angular/router';
+import { ActivatedRoute,ParamMap  } from '@angular/router';
 import { Observable, Subscription, switchMap, tap } from 'rxjs';
 import { ContentService } from '../content.service';
 import { Content, ContentInterface, ContentType } from '../content.model';
