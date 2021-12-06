@@ -45,7 +45,7 @@ export class ContentEditComponent implements OnInit {
     this.route = route;
     this.router = router;
     this.content = {
-      id: -1,
+      id: '-1',
       name: 'Name here',
       tags: [''],
       inProduction: false,
@@ -64,7 +64,7 @@ export class ContentEditComponent implements OnInit {
         switchMap((params: ParamMap) => {
           if (!params.get('id') ?? 'null') {
             return of({
-              id: -1,
+              id: '-1',
               name: 'Name here',
               tags: [],
               inProduction: false,
@@ -74,9 +74,7 @@ export class ContentEditComponent implements OnInit {
               language: 'English',
             });
           } else {
-            return this.contentService.getForId(
-              parseInt(params.get('id') ?? '-1', 10)
-            );
+            return this.contentService.getForId(params.get('id') ?? '-1');
           }
         }),
         tap(console.log)
@@ -86,7 +84,7 @@ export class ContentEditComponent implements OnInit {
       });
   }
   onSubmit(): void {
-    if (this.content.id === -1) {
+    if (this.content.id === '-1') {
       console.log('create content');
 
       this.tags.forEach((item) => {
@@ -94,11 +92,11 @@ export class ContentEditComponent implements OnInit {
         console.log(item);
       });
       console.log(this.content);
-      this.contentService.pushItem(this.content);
+      this.contentService.add(this.content);
       this.router.navigate(['..'], { relativeTo: this.route });
     } else {
       console.log('update content');
-      this.contentService.setOption(this.content.id, this.content);
+      this.contentService.update(this.content.id, this.content);
       this.router.navigate(['..'], { relativeTo: this.route });
     }
   }
