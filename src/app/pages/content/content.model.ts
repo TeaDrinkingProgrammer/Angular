@@ -9,6 +9,7 @@ export interface Content {
   websiteLink?: string;
   language: string;
   targetLanguage?: string;
+  user: string;
 }
 export enum ContentInterface {
   Video = 'video',

@@ -53,18 +53,19 @@ export class ContentEditComponent implements OnInit {
       contentInterface: ContentInterface.Either,
       contentType: ContentType.Videos,
       language: 'English',
+      user: '',
     };
   }
 
   ngOnInit(): void {
     //TODO two way binding met map werkt niet
+    console.log('contentinterfaces: ', this.contentInterfaces);
     this.subscription = this.route.paramMap
       .pipe(
         tap(console.log),
         switchMap((params: ParamMap) => {
           if (!params.get('id') ?? 'null') {
             return of({
-              id: '-1',
               name: 'Name here',
               tags: [],
               inProduction: false,
@@ -84,15 +85,18 @@ export class ContentEditComponent implements OnInit {
       });
   }
   onSubmit(): void {
-    if (this.content.id === '-1') {
+    if (!this.content.id) {
       console.log('create content');
 
       this.tags.forEach((item) => {
         this.content.tags.push(item.value);
         console.log(item);
       });
-      console.log(this.content);
-      this.contentService.add(this.content);
+      this.content.user = '61ae43fe50046fca2e25e8bb';
+      console.log('item sent to service:', this.content);
+      //!! Temporary before auth gets implemented
+      this.content.user = '61ae43fe50046fca2e25e8bb';
+      this.contentService.add(this.content).subscribe(console.log);
       this.router.navigate(['..'], { relativeTo: this.route });
     } else {
       console.log('update content');

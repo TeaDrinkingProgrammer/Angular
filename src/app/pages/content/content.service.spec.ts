@@ -44,6 +44,7 @@ describe('ContentService', () => {
       contentInterface: ContentInterface.Video,
       contentType: ContentType.Videos,
       language: 'Dutch',
+      user: '',
     };
     contentServiceSpy.getForId.and.returnValue(of(stubValue));
 
@@ -72,6 +73,8 @@ describe('ContentService', () => {
       contentInterface: ContentInterface.Video,
       contentType: ContentType.Videos,
       language: 'Dutch',
+      //TODO fix
+      user: '',
     };
     contentServiceSpy.getForId.and.returnValue(of(stubValue));
     contentServiceSpy.add;

@@ -17,11 +17,14 @@ export class ContentListComponent implements OnInit {
   ngOnInit(): void {
     //doesn't work, changes all to one when going from 1 contentdetail to contentlist
     this.contentList$ = this.contentService.getAll().pipe(tap(console.log));
+    console.log('list:');
+    this.contentList$.pipe(tap(console.log));
   }
   deleteContent(id: string) {
     console.log('button click', id);
-    this.contentService.deleteForId(id);
-    //TODO is this correct?
+    //Response returns deleted items
+    this.contentService.deleteForId(id).pipe().subscribe();
+    // //TODO is this correct?
     this.contentList$ = this.contentService.getAll().pipe(tap(console.log));
   }
 }
