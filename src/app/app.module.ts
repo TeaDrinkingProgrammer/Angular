@@ -9,12 +9,13 @@ import { ContentDetailComponent } from './pages/content/content-detail/content-d
 import { AboutComponent } from './pages/about/about.component';
 import { ContentEditComponent } from './pages/content/content-edit/content-edit.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import {TagInputModule } from 'ngx-chips';
+import { TagInputModule } from 'ngx-chips';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { RouterTestingModule } from "@angular/router/testing";
+import { RouterTestingModule } from '@angular/router/testing';
 import { UserListComponent } from './pages/user/user-list/user-list.component';
 import { UserDetailComponent } from './pages/user/user-detail/user-detail.component';
 import { UserEditComponent } from './pages/user/user-edit/user-edit.component';
+import { HttpClientModule } from '@angular/common/http';
 @NgModule({
   declarations: [
     AppComponent,
@@ -34,8 +35,9 @@ import { UserEditComponent } from './pages/user/user-edit/user-edit.component';
     FormsModule,
     TagInputModule,
     BrowserAnimationsModule,
+    HttpClientModule,
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

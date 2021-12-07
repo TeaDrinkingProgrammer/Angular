@@ -1,29 +1,37 @@
 <div class="d-flex">
-    <h1 class="m-auto py-2">Content</h1>
+  <h1 class="m-auto py-2">Content</h1>
 </div>
 <table class="table table-striped">
-    <thead>
-        <tr>
-            <th scope="col">#</th>
-            <th scope="col">Name</th>
-            <th scope="col">Type</th>
-            <th scope="col">Tags</th>
-            <th scope="col">Buttons</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr *ngFor="let content of contentList$ | async;">
-            <th scope="row">{{ content.id }}</th>
-            <td><a [routerLink]="['./',content.id]">{{ content.name }}</a></td>
-            <td>{{content.contentType}}</td>
-            <td>
-                <div class="d-inline-block">
-                    <span class="badge badge-primary mx-1 p-2" *ngFor="let tag of content.tags">{{tag}}</span>
-                </div>
-            </td>
-            <td>
-                <button class="btn btn-danger" (click)="deleteContent(content.id)">Delete</button>
-            </td>
-        </tr>
-    </tbody>
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Name</th>
+      <th scope="col">Type</th>
+      <th scope="col">Tags</th>
+      <th scope="col">Buttons</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let content of contentList$ | async; index as i">
+      <th scope="row">{{ i + 1 }}</th>
+      <td>
+        <a [routerLink]="['./', content.id]">{{ content.name }}</a>
+      </td>
+      <td>{{ content.contentType }}</td>
+      <td>
+        <div class="d-inline-block">
+          <span
+            class="badge badge-primary mx-1 p-2"
+            *ngFor="let tag of content.tags"
+            >{{ tag }}</span
+          >
+        </div>
+      </td>
+      <td>
+        <button class="btn btn-danger" (click)="deleteContent(content.id)">
+          Delete
+        </button>
+      </td>
+    </tr>
+  </tbody>
 </table>

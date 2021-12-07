@@ -45,7 +45,7 @@ export class ContentEditComponent implements OnInit {
     this.route = route;
     this.router = router;
     this.content = {
-      id: -1,
+      id: '-1',
       name: 'Name here',
       tags: [''],
       inProduction: false,
@@ -53,18 +53,19 @@ export class ContentEditComponent implements OnInit {
       contentInterface: ContentInterface.Either,
       contentType: ContentType.Videos,
       language: 'English',
+      user: '',
     };
   }
 
   ngOnInit(): void {
     //TODO two way binding met map werkt niet
+    console.log('contentinterfaces: ', this.contentInterfaces);
     this.subscription = this.route.paramMap
       .pipe(
         tap(console.log),
         switchMap((params: ParamMap) => {
           if (!params.get('id') ?? 'null') {
             return of({
-              id: -1,
               name: 'Name here',
               tags: [],
               inProduction: false,
@@ -74,31 +75,35 @@ export class ContentEditComponent implements OnInit {
               language: 'English',
             });
           } else {
-            return this.contentService.getForId(
-              parseInt(params.get('id') ?? '-1', 10)
-            );
+            return this.contentService.getForId(params.get('id') ?? '-1');
           }
         }),
         tap(console.log)
       )
       .subscribe((content) => {
         this.content = content;
+        this.content.contentInterface;
       });
   }
   onSubmit(): void {
-    if (this.content.id === -1) {
+    if (!this.content.id) {
       console.log('create content');
 
       this.tags.forEach((item) => {
         this.content.tags.push(item.value);
         console.log(item);
       });
-      console.log(this.content);
-      this.contentService.pushItem(this.content);
+      console.log('item sent to service:', this.content);
+      //!! TODO Temporary before auth gets implemented
+      this.content.user = '61ae43fe50046fca2e25e8bb';
+      this.contentService.add(this.content).subscribe(console.log);
       this.router.navigate(['..'], { relativeTo: this.route });
     } else {
+      //TODO Update now sends unnecesary data, change to only send mutated values
       console.log('update content');
-      this.contentService.setOption(this.content.id, this.content);
+      this.contentService
+        .update(this.content.id, this.content)
+        .subscribe(console.log);
       this.router.navigate(['..'], { relativeTo: this.route });
     }
   }

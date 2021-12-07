@@ -1,86 +1,128 @@
 import { Injectable } from '@angular/core';
-import { delay, filter, from, Observable, of, Subject, switchMap, take } from 'rxjs';
+import {
+  delay,
+  filter,
+  from,
+  Observable,
+  tap,
+  pipe,
+  of,
+  Subject,
+  switchMap,
+  take,
+  map,
+  throwError,
+  catchError,
+} from 'rxjs';
 import { Content, ContentInterface, ContentType } from './content.model';
-@Injectable({
-  providedIn: 'root'
-})
+import { environment } from 'src/environments/environment';
+import {
+  HttpClient,
+  HttpErrorResponse,
+  HttpHeaders,
+  HttpParams,
+} from '@angular/common/http';
 
+const httpOptions = {
+  headers: new HttpHeaders({
+    'Content-Type': 'application/json',
+  }),
+  // observe: 'body',
+  // responseType: 'json',
+};
+@Injectable({
+  providedIn: 'root',
+})
 export class ContentService {
-  private contentList : Content[];
-  constructor() {
-    this.contentList = [
-      {id: 0, name: "No Hay Tos",
-        tags: ["native","south american spanish","real conversation", "for learners"], 
-        inProduction: true,
-        language: "Spanish", 
-        platforms: [{name: "Spotify",link: "https://open.spotify.com/show/24Zc3LPwIH1nnqUbhWY2T0"},{name: "Apple Music",link: "https://podcasts.apple.com/us/podcast/no-hay-tos-real-mexican-spanish/id1360162037"}],
-        contentInterface: ContentInterface.Either,
-        contentType: ContentType.Podcast,
-        websiteLink: "https://www.nohaytospodcast.com/"
-      },
-      
-      {id: 1, name: "Spain Revealed",
-      tags: ["spain", "culture","madrid"],
-      inProduction: true,
-      platforms: [{name: "Youtube",link: "https://www.youtube.com/c/JamesBlick/"}],
-      contentInterface: ContentInterface.Video,
-      contentType: ContentType.Videos,
-      language: "English",
-      targetLanguage: "Spanish"
-    },
-    {id: 2, name: "Spanish after hours",
-    tags: ["native", "spanish from Spain","for learners","comprehensible input","roleplay"],
-    inProduction: true,
-    platforms: [{name: "Youtube",link: "https://www.youtube.com/channel/UCfG2VhlQgy5bHGmkpeKcjVA"}],
-    contentInterface: ContentInterface.Video,
-    contentType: ContentType.Videos,
-    language: "Spanish"
-    },
-{id: 3, name: "Easy Spanish",
-  tags: ["native", "mixed regions","for learners","subtitles","voxpop","street interviews"],
-  inProduction: true,
-  platforms: [{name: "Youtube",link: "https://www.youtube.com/channel/UCAL4AMMMXKxHDu3FqZV6CbQ"}],
-  contentInterface: ContentInterface.Video,
-  contentType: ContentType.Videos,
-  language: "Spanish"
-},
-{id: 4, name: "Bart de Pau",
-  tags: ["native", "mixed regions","for learners","subtitles","language course","culture"],
-  inProduction: true,
-  platforms: [{name: "Youtube",link: "https://www.youtube.com/c/LearndutchOrg"}],
-  contentInterface: ContentInterface.Video,
-  contentType: ContentType.Videos,
-  language: "Dutch"
-}]
-   }
-   setOption(id : number, value : Content) {      
-    this.contentList.forEach((item) => {
-      if(item.id === id){
-        item = value
-      }
-    });  
-  }  
-  pushItem(item : Content){
-    //TODO: how to make this observable
-    item.id = this.contentList.length;
-    this.contentList.push(item);
+  constructor(protected readonly http: HttpClient) {}
+  update(id: string, item: Content) {
+    let params = new HttpParams().set('id', id);
+    const endpoint = environment.backendEndpoint + '/content';
+    let sentItem: any = item;
+    sentItem.contentInterface = sentItem.contentInterface
+      .toString()
+      .toLowerCase();
+    sentItem.contentType = sentItem.contentType.toString().toLowerCase();
+    delete sentItem.id;
+    return this.http
+      .put<Content>(endpoint, item, { ...httpOptions, params: params })
+      .pipe(
+        tap(console.log),
+        map((response) => response.result),
+        catchError(this.handleError)
+      );
   }
-  getForId(id : number) : Observable<Content>{
-    return from(this.contentList).pipe(
-      filter((item) => item.id === id),
-      take(1)
-    )
+  add(item: Content) {
+    const endpoint = environment.backendEndpoint + '/content';
+    let sentItem: any = item;
+    sentItem.contentInterface = sentItem.contentInterface
+      .toString()
+      .toLowerCase();
+    sentItem.contentType = sentItem.contentType.toString().toLowerCase();
+    return this.http.post<Content>(endpoint, item, { ...httpOptions }).pipe(
+      tap(console.log),
+      map((response) => response.result),
+      catchError(this.handleError)
+    );
   }
-  deleteForId(id : number) : boolean{
-    this.contentList = this.contentList.filter(function(ele){ 
-      console.log(ele.id != id)
-      return ele.id != id; 
-  })
-  console.log("array: ",this.contentList)
-    return true
+  getForId(id: string): Observable<Content> {
+    let params = new HttpParams().set('id', id);
+    const endpoint = environment.backendEndpoint + '/content';
+    return this.http
+      .get<Content[]>(endpoint, { ...httpOptions, params: params })
+      .pipe(
+        tap(console.log),
+        map((response) => response.result),
+        map((result) => {
+          //TODO this is kind of hacky and inefficient
+          result.contentInterface =
+            result.contentInterface[0].toUpperCase() +
+            result.contentInterface.substr(1).toLowerCase();
+          result.contentType =
+            result.contentType[0].toUpperCase() +
+            result.contentType.substr(1).toLowerCase();
+          return result;
+        }),
+        catchError(this.handleError)
+      );
   }
-  
-  getAll() : Observable<Content[]> {  
-    return of(this.contentList);  
-  }  
+  public deleteForId(id: string) {
+    console.log('deleteForId');
+    let params = new HttpParams().set('id', id);
+    const endpoint = environment.backendEndpoint + '/content';
+    return this.http.delete(endpoint, { ...httpOptions, params: params }).pipe(
+      tap(console.log),
+      map((response) => response.result),
+      catchError(this.handleError)
+    );
+  }
+
+  public getAll(options?: any): Observable<Content[]> {
+    const endpoint = environment.backendEndpoint + '/content';
+    return this.http
+      .get<Content[]>(endpoint, { ...options, ...httpOptions })
+      .pipe(
+        tap(console.log),
+        map((response) => response.result),
+        map((result) => {
+          //TODO this is kind of hacky and inefficient
+          result.forEach((element: any) => {
+            element.contentInterface =
+              element.contentInterface[0].toUpperCase() +
+              element.contentInterface.substr(1).toLowerCase();
+            element.contentType =
+              element.contentType[0].toUpperCase() +
+              element.contentType.substr(1).toLowerCase();
+            return element;
+          });
+          return result;
+        }),
+        tap(console.log),
+        catchError(this.handleError)
+      );
+  }
+  private handleError(error: HttpErrorResponse): Observable<any> {
+    console.log(error);
+    return throwError(() => error);
+  }
 }
