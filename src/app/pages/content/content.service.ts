@@ -35,7 +35,23 @@ const httpOptions = {
 })
 export class ContentService {
   constructor(protected readonly http: HttpClient) {}
-  update(id: string, value: Content) {}
+  update(id: string, item: Content) {
+    let params = new HttpParams().set('id', id);
+    const endpoint = environment.backendEndpoint + '/content';
+    let sentItem: any = item;
+    sentItem.contentInterface = sentItem.contentInterface
+      .toString()
+      .toLowerCase();
+    sentItem.contentType = sentItem.contentType.toString().toLowerCase();
+    delete sentItem.id;
+    return this.http
+      .put<Content>(endpoint, item, { ...httpOptions, params: params })
+      .pipe(
+        tap(console.log),
+        map((response) => response.result),
+        catchError(this.handleError)
+      );
+  }
   add(item: Content) {
     const endpoint = environment.backendEndpoint + '/content';
     let sentItem: any = item;
@@ -57,6 +73,16 @@ export class ContentService {
       .pipe(
         tap(console.log),
         map((response) => response.result),
+        map((result) => {
+          //TODO this is kind of hacky and inefficient
+          result.contentInterface =
+            result.contentInterface[0].toUpperCase() +
+            result.contentInterface.substr(1).toLowerCase();
+          result.contentType =
+            result.contentType[0].toUpperCase() +
+            result.contentType.substr(1).toLowerCase();
+          return result;
+        }),
         catchError(this.handleError)
       );
   }
@@ -78,6 +104,19 @@ export class ContentService {
       .pipe(
         tap(console.log),
         map((response) => response.result),
+        map((result) => {
+          //TODO this is kind of hacky and inefficient
+          result.forEach((element: any) => {
+            element.contentInterface =
+              element.contentInterface[0].toUpperCase() +
+              element.contentInterface.substr(1).toLowerCase();
+            element.contentType =
+              element.contentType[0].toUpperCase() +
+              element.contentType.substr(1).toLowerCase();
+            return element;
+          });
+          return result;
+        }),
         tap(console.log),
         catchError(this.handleError)
       );

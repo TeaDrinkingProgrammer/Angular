@@ -82,6 +82,7 @@ export class ContentEditComponent implements OnInit {
       )
       .subscribe((content) => {
         this.content = content;
+        this.content.contentInterface;
       });
   }
   onSubmit(): void {
@@ -92,15 +93,17 @@ export class ContentEditComponent implements OnInit {
         this.content.tags.push(item.value);
         console.log(item);
       });
-      this.content.user = '61ae43fe50046fca2e25e8bb';
       console.log('item sent to service:', this.content);
-      //!! Temporary before auth gets implemented
+      //!! TODO Temporary before auth gets implemented
       this.content.user = '61ae43fe50046fca2e25e8bb';
       this.contentService.add(this.content).subscribe(console.log);
       this.router.navigate(['..'], { relativeTo: this.route });
     } else {
+      //TODO Update now sends unnecesary data, change to only send mutated values
       console.log('update content');
-      this.contentService.update(this.content.id, this.content);
+      this.contentService
+        .update(this.content.id, this.content)
+        .subscribe(console.log);
       this.router.navigate(['..'], { relativeTo: this.route });
     }
   }
