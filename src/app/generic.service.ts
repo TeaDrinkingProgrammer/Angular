@@ -37,12 +37,14 @@ export class GenericService<T> {
     if (auth) {
       this.subscriptionOptions = this.authService.currentUser$.subscribe(
         (user) => {
-          console.log('userid:', user.id);
-          this.userId = user.id;
-          this.httpOptions = {
-            'Content-Type': 'application/json',
-            Authorization: 'Bearer ' + user.token,
-          };
+          if (user) {
+            console.log('userid:', user.id);
+            this.userId = user.id;
+            this.httpOptions = {
+              'Content-Type': 'application/json',
+              Authorization: 'Bearer ' + user.token,
+            };
+          }
         }
       );
     }

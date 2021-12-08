@@ -3,7 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModule, NgbNav } from '@ng-bootstrap/ng-bootstrap';
 import { ContentListComponent } from './pages/content/content-list/content-list.component';
 import { ContentDetailComponent } from './pages/content/content-detail/content-detail.component';
 import { AboutComponent } from './pages/about/about.component';

@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { User } from 'src/app/pages/user/user.model';
 import { delay } from 'rxjs/operators';
+import { AlertService } from 'src/app/shared/alert/alert.service';
 
 @Component({
   selector: 'app-login',
@@ -13,10 +14,14 @@ import { delay } from 'rxjs/operators';
 })
 export class LoginComponent implements OnInit, OnDestroy {
   loginForm: FormGroup;
-  subs: Subscription;
+  subs?: Subscription;
   submitted = false;
 
-  constructor(private authService: AuthService, private router: Router) {}
+  constructor(
+    private authService: AuthService,
+    private router: Router,
+    private alertService: AlertService
+  ) {}
 
   ngOnInit(): void {
     this.loginForm = new FormGroup({
@@ -32,8 +37,9 @@ export class LoginComponent implements OnInit, OnDestroy {
 
     this.subs = this.authService
       .getUserFromLocalStorage()
-      .subscribe((user: any) => {
-        if (user.length == 0) {
+      .subscribe((user: any | undefined) => {
+        //Cannot convert undefined to object
+        if (user) {
           console.log('user:', user);
           console.log('User already logged in > to dashboard');
           this.router.navigate(['/']);
@@ -49,6 +55,7 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   onSubmit(): void {
     if (this.loginForm.valid) {
+      // this.alertService.success('You have been registered');
       this.submitted = true;
       const email = this.loginForm.value.email;
       const password = this.loginForm.value.password;

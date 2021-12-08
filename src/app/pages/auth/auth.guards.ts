@@ -26,7 +26,7 @@ export class LoggedInAuthGuard implements CanActivate, CanActivateChild {
   canActivate(): Observable<boolean> {
     console.log('canActivate LoggedIn');
     return this.authService.currentUser$.pipe(
-      map((user: User) => {
+      map((user) => {
         if (user && user.token) {
           return true;
         } else {

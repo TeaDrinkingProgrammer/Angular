@@ -15,6 +15,7 @@ export class AlertComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.subs = this.alertService.alert$.subscribe((alert) => {
+      console.log('alert called');
       this.alert = alert;
       this.staticAlertClosed = false;
       // auto close alertbox after some time

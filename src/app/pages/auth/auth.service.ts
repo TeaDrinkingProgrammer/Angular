@@ -9,7 +9,7 @@ import {
 import { User } from '../user/user.model';
 import { Router } from '@angular/router';
 import { map, tap, catchError, switchMap } from 'rxjs/operators';
-// import { AlertService } from '../shared/alert/alert.service';
+import { AlertService } from 'src/app/shared/alert/alert.service';
 import {
   HttpClient,
   HttpErrorResponse,
@@ -26,14 +26,14 @@ export class AuthService {
   // firstName: string;
   // lastName: string;
   // email: string;
-  public currentUser$ = new BehaviorSubject<User>({} as User);
+  public currentUser$ = new BehaviorSubject<User | undefined>({} as User);
   private readonly CURRENT_USER = 'currentuser';
   private readonly headers = new HttpHeaders({
     'Content-Type': 'application/json',
   });
 
   constructor(
-    // private alertService: AlertService,
+    private alertService: AlertService,
     private http: HttpClient,
     private router: Router
   ) {
@@ -44,14 +44,19 @@ export class AuthService {
     this.getUserFromLocalStorage()
       .pipe(
         // switchMap is overbodig als we validateToken() niet gebruiken...
-        switchMap((user: User) => {
+        map((user) => {
           if (user) {
-            console.log('User found in local storage');
+            console.log('user: ', user);
+            // console.log(
+            //   'User found in local storage',
+            //   Object.keys(user).length
+            // );
             this.currentUser$.next(user);
             // return this.validateToken(user);
             return of(user);
           } else {
             console.log(`No current user found`);
+            // console.log('user length: ', Object.keys(user).length);
             return of(undefined);
           }
         })
@@ -93,7 +98,7 @@ export class AuthService {
           console.dir(user);
           this.saveUserToLocalStorage(user);
           this.currentUser$.next(user);
-          // this.alertService.success('You have been registered');
+          this.alertService.success('You are logged in');
           return user;
         }),
         catchError(this.handleError)
@@ -118,7 +123,7 @@ export class AuthService {
           console.dir(user);
           this.saveUserToLocalStorage(user);
           this.currentUser$.next(user);
-          // this.alertService.success('You have been registered');
+          this.alertService.success('You have been registered');
           return user;
         }),
         catchError(this.handleError)
@@ -152,27 +157,23 @@ export class AuthService {
   logout(): void {
     this.router
       .navigate(['/'])
-      .then((success) => {
-        // true when canDeactivate allows us to leave the page.
-        if (success) {
-          console.log('logout - removing local user info');
-          localStorage.removeItem(this.CURRENT_USER);
-          this.currentUser$.next({} as User);
-          // this.alertService.success('You have been logged out.');
-        } else {
-          console.log('navigate result:', success);
-        }
+      .then(() => {
+        // snap dit niet dus eruit gehaald -> true when canDeactivate allows us to leave the page.
+        console.log('logout - removing local user info');
+        localStorage.removeItem(this.CURRENT_USER);
+        this.currentUser$.next({} as User);
+        this.alertService.success('You have been logged out.');
       })
       .catch((error) => console.log('not logged out!'));
   }
 
-  getUserFromLocalStorage(): Observable<User> {
+  getUserFromLocalStorage(): Observable<User | null> {
     let localItem = localStorage.getItem(this.CURRENT_USER);
     if (localItem) {
       const localUser = JSON.parse(localItem);
       return of(localUser);
     }
-    return of({} as User);
+    return of(null);
   }
 
   private saveUserToLocalStorage(user: User): void {
@@ -181,7 +182,7 @@ export class AuthService {
 
   userMayEdit(itemUserId: string): Observable<boolean> {
     return this.currentUser$.pipe(
-      map((user: User) => (user ? user.id === itemUserId : false))
+      map((user) => (user ? user.id === itemUserId : false))
     );
   }
   private handleError(error: HttpErrorResponse): Observable<any> {
