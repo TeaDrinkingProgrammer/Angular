@@ -16,6 +16,9 @@ import { UserListComponent } from './pages/user/user-list/user-list.component';
 import { UserDetailComponent } from './pages/user/user-detail/user-detail.component';
 import { UserEditComponent } from './pages/user/user-edit/user-edit.component';
 import { HttpClientModule } from '@angular/common/http';
+import { SharedModule } from './shared/shared.module';
+import { RegisterComponent } from './pages/auth/register/register.component';
+import { LoginComponent } from './pages/auth/login/login.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -26,16 +29,19 @@ import { HttpClientModule } from '@angular/common/http';
     UserListComponent,
     UserDetailComponent,
     UserEditComponent,
+    RegisterComponent,
+    LoginComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     NgbModule,
-    ReactiveFormsModule,
     FormsModule,
+    ReactiveFormsModule,
     TagInputModule,
     BrowserAnimationsModule,
     HttpClientModule,
+    SharedModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

@@ -8,23 +8,31 @@ import { ContentListComponent } from './pages/content/content-list/content-list.
 import { UserListComponent } from './pages/user/user-list/user-list.component';
 import { UserDetailComponent } from './pages/user/user-detail/user-detail.component';
 import { UserEditComponent } from './pages/user/user-edit/user-edit.component';
+import { LoginComponent } from './pages/auth/login/login.component';
+import { RegisterComponent } from './pages/auth/register/register.component';
 
 const routes: Routes = [
   { path: '', pathMatch: 'full', component: IndexComponent },
-  { path:'content',pathMatch:'full',component: ContentListComponent},//kan met children kindroutes maken
-  { path:'content/:id',pathMatch:'full',component: ContentDetailComponent}, 
-  { path:'content/:id/edit',pathMatch:'full',component: ContentEditComponent}, 
-  { path:'new-content',pathMatch:'full',component: ContentEditComponent},
-  { path: 'user',pathMatch:'full',component: UserListComponent}, 
-  { path: 'user/:id',pathMatch:'full',component: UserDetailComponent}, 
-  { path: 'user/:id/edit',pathMatch:'full',component: UserEditComponent}, 
-  { path:'about',pathMatch:'full',component: AboutComponent },
-  { path:'new-user',pathMatch:'full',component: UserEditComponent},
+  { path: 'content', pathMatch: 'full', component: ContentListComponent }, //kan met children kindroutes maken
+  { path: 'content/:id', pathMatch: 'full', component: ContentDetailComponent },
+  {
+    path: 'content/:id/edit',
+    pathMatch: 'full',
+    component: ContentEditComponent,
+  },
+  { path: 'new-content', pathMatch: 'full', component: ContentEditComponent },
+  { path: 'user', pathMatch: 'full', component: UserListComponent },
+  { path: 'user/:id', pathMatch: 'full', component: UserDetailComponent },
+  { path: 'user/:id/edit', pathMatch: 'full', component: UserEditComponent },
+  { path: 'about', pathMatch: 'full', component: AboutComponent },
+  { path: 'new-user', pathMatch: 'full', component: UserEditComponent },
+  { path: 'login', pathMatch: 'full', component: LoginComponent },
+  { path: 'register', pathMatch: 'full', component: RegisterComponent },
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class AppRoutingModule { }
-export { routes}
+export class AppRoutingModule {}
+export { routes };

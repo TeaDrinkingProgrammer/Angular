@@ -23,7 +23,7 @@ export class ContentService {
       .toString()
       .toLowerCase();
     sentItem.contentType = sentItem.contentType.toString().toLowerCase();
-    return this.genericService.add(item, this.route);
+    return this.genericService.add(item, this.route, true);
   }
   getForId(id: string): Observable<Content> {
     return this.genericService.getForId(
