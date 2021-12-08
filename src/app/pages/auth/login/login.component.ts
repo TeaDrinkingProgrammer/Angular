@@ -16,9 +16,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   subs: Subscription;
   submitted = false;
 
-  constructor(private authService: AuthService, private router: Router) {
-    this.loginForm = new FormGroup({});
-  }
+  constructor(private authService: AuthService, private router: Router) {}
 
   ngOnInit(): void {
     this.loginForm = new FormGroup({
@@ -34,8 +32,9 @@ export class LoginComponent implements OnInit, OnDestroy {
 
     this.subs = this.authService
       .getUserFromLocalStorage()
-      .subscribe((user: User) => {
-        if (user) {
+      .subscribe((user: any) => {
+        if (user.length == 0) {
+          console.log('user:', user);
           console.log('User already logged in > to dashboard');
           this.router.navigate(['/']);
         }
@@ -77,9 +76,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     if (regexp.test(email) !== true) {
       return { email: false };
     } else {
-      return {
-        email: true,
-      };
+      return {};
     }
   }
 
@@ -90,9 +87,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     if (regexp.test(password) !== true) {
       return { password: false };
     } else {
-      return {
-        password: true,
-      };
+      return {};
     }
   }
 }

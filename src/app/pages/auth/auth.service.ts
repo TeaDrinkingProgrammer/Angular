@@ -60,20 +60,40 @@ export class AuthService {
   }
 
   login(email: string, password: string): Observable<User> {
-    console.log(`login at ${environment.backendEndpoint}/auth/login`);
-
+    const url = `${environment.backendEndpoint}/auth/login`;
+    console.log(`register at ${url}`);
+    // return this.http
+    //   .post<User>(
+    //     `${environment.backendEndpoint}/auth/login`,
+    //     { email: email, password: password },
+    //     { headers: this.headers }
+    //   )
+    //   .pipe(
+    //     map((user) => {
+    //       this.saveUserToLocalStorage(user);
+    //       this.currentUser$.next(user);
+    //       //TODO fix alertservice
+    //       // this.alertService.success('You have been logged in');
+    //       return user;
+    //     }),
+    //     catchError(this.handleError)
+    //   );
+    let userData = { email: email, password: password };
     return this.http
-      .post<User>(
-        `${environment.backendEndpoint}/auth/login`,
-        { email: email, password: password },
-        { headers: this.headers }
-      )
+      .post<any>(url, userData, {
+        headers: this.headers,
+      })
       .pipe(
+        switchMap((response: any) => {
+          console.log('must be result: ', response.result);
+          return of(response.result as User);
+        }),
         map((user) => {
+          // const user = new User(response);
+          console.dir(user);
           this.saveUserToLocalStorage(user);
           this.currentUser$.next(user);
-          //TODO fix alertservice
-          // this.alertService.success('You have been logged in');
+          // this.alertService.success('You have been registered');
           return user;
         }),
         catchError(this.handleError)
@@ -90,6 +110,7 @@ export class AuthService {
       })
       .pipe(
         switchMap((response: any) => {
+          console.log('must be result: ', response.result);
           return of(response.result as User);
         }),
         map((user) => {
