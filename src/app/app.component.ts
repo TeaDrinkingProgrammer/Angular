@@ -20,8 +20,13 @@ export class AppComponent implements OnInit {
     this.authService.currentUser$.subscribe((user) => {
       console.log('user content: ', user);
       console.log('user truthiness: ', user ? true : false);
+      console.log(
+        'user truthiness undefined: ',
+        user != undefined ? true : false
+      );
       //Ik wil hier gewoon if kunnen doen
-      if (Object.keys(user as any).length !== 0) {
+      //Object.keys(user as any).length !== 0
+      if (user != undefined) {
         this.loggedInUser = user;
       } else {
         this.loggedInUser = undefined;

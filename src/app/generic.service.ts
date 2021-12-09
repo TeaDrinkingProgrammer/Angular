@@ -16,13 +16,37 @@ export class GenericService<T> {
   subscriptionOptions: any;
   userId: string;
   httpOptions: any = {
-    'Content-Type': 'application/json',
+    headers: {
+      'Content-Type': 'application/json',
+    },
   };
   constructor(
     protected readonly http: HttpClient,
     private readonly authService: AuthService
   ) {}
-  update(id: string, item: T, route: string) {
+  private auth() {
+    this.subscriptionOptions = this.authService.currentUser$.subscribe(
+      (user) => {
+        if (user) {
+          console.log('userid:', user.id);
+          this.userId = user.id;
+          this.httpOptions = {
+            headers: {
+              'Content-Type': 'application/json',
+              Authorization: 'Bearer ' + user.token,
+            },
+          };
+        }
+      }
+    );
+  }
+  update(id: string, item: any, route: string, auth: boolean = true) {
+    console.log('generic update');
+    if (auth) {
+      this.auth();
+      console.log('update header: ', this.httpOptions);
+    }
+    console.log('generic update item: ', item);
     let completeRoute = `${this.endpoint}/${route}`;
     let params = new HttpParams().set('id', id);
     return this.http
@@ -35,42 +59,42 @@ export class GenericService<T> {
   }
   add(item: T, route: string, auth: boolean) {
     if (auth) {
-      this.subscriptionOptions = this.authService.currentUser$.subscribe(
-        (user) => {
-          if (user) {
-            console.log('userid:', user.id);
-            this.userId = user.id;
-            this.httpOptions = {
-              'Content-Type': 'application/json',
-              Authorization: 'Bearer ' + user.token,
-            };
-          }
-        }
-      );
+      this.auth();
     }
     console.log('authheader:', this.httpOptions);
     let completeRoute = `${this.endpoint}/${route}`;
-    return this.http
-      .post<T>(completeRoute, item, { headers: this.httpOptions })
-      .pipe(
-        tap(console.log),
-        map((response) => response.result),
-        catchError(this.handleError)
-      );
+    return this.http.post<T>(completeRoute, item, { ...this.httpOptions }).pipe(
+      tap(console.log),
+      map((response) => response.result),
+      catchError(this.handleError)
+    );
   }
-  getForId(id: string, route: string, mapfunction: any): Observable<T> {
+  getForId(id: string, route: string, mapfunction?: any): Observable<T> {
     let completeRoute = `${this.endpoint}/${route}`;
     let params = new HttpParams().set('id', id);
-    return this.http
-      .get<T[]>(completeRoute, { ...this.httpOptions, params: params })
-      .pipe(
-        tap(console.log),
-        map((response) => response.result),
-        mapfunction,
-        catchError(this.handleError)
-      );
+    if (mapfunction) {
+      return this.http
+        .get<T[]>(completeRoute, { ...this.httpOptions, params: params })
+        .pipe(
+          tap(console.log),
+          map((response) => response.result),
+          mapfunction,
+          catchError(this.handleError)
+        );
+    } else {
+      return this.http
+        .get<T[]>(completeRoute, { ...this.httpOptions, params: params })
+        .pipe(
+          tap(console.log),
+          map((response) => response.result),
+          catchError(this.handleError)
+        );
+    }
   }
-  public deleteForId(id: string, route: string) {
+  public deleteForId(id: string, route: string, auth: boolean = true) {
+    if (auth) {
+      this.auth();
+    }
     console.log('deleteForId');
     let completeRoute = `${this.endpoint}/${route}`;
     let params = new HttpParams().set('id', id);
@@ -88,16 +112,28 @@ export class GenericService<T> {
     mapfunction: any,
     options?: any
   ): Observable<T[]> {
+    console.log('getall');
     let completeRoute = `${this.endpoint}/${route}`;
-    return this.http
-      .get<T[]>(completeRoute, { ...options, ...this.httpOptions })
-      .pipe(
-        tap(console.log),
-        map((response) => response.result),
-        mapfunction,
-        tap(console.log),
-        catchError(this.handleError)
-      );
+    if (mapfunction) {
+      return this.http
+        .get<T[]>(completeRoute, { ...options, ...this.httpOptions })
+        .pipe(
+          tap(console.log),
+          map((response) => response.result),
+          mapfunction,
+          tap(console.log),
+          catchError(this.handleError)
+        );
+    } else {
+      return this.http
+        .get<T[]>(completeRoute, { params: options, ...this.httpOptions })
+        .pipe(
+          tap(console.log),
+          map((response) => response.result),
+          tap(console.log),
+          catchError(this.handleError)
+        );
+    }
   }
   private handleError(error: HttpErrorResponse): Observable<any> {
     console.log(error);

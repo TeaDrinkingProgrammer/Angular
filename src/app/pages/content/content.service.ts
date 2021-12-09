@@ -15,7 +15,7 @@ export class ContentService {
       .toLowerCase();
     sentItem.contentType = sentItem.contentType.toString().toLowerCase();
     delete sentItem.id;
-    return this.genericService.update(id, item, this.route);
+    return this.genericService.update(id, sentItem, this.route);
   }
   add(item: Content) {
     let sentItem: any = item;
@@ -43,7 +43,7 @@ export class ContentService {
   }
   public deleteForId(id: string) {
     console.log('deleteForId');
-    return this.genericService.deleteForId(id, this.route);
+    return this.genericService.deleteForId(id, this.route, true);
   }
 
   public getAll(options?: any): Observable<Content[]> {

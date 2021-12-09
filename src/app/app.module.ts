@@ -12,25 +12,31 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TagInputModule } from 'ngx-chips';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
-import { UserListComponent } from './pages/user/user-list/user-list.component';
-import { UserDetailComponent } from './pages/user/user-detail/user-detail.component';
-import { UserEditComponent } from './pages/user/user-edit/user-edit.component';
 import { HttpClientModule } from '@angular/common/http';
 import { SharedModule } from './shared/shared.module';
 import { RegisterComponent } from './pages/auth/register/register.component';
 import { LoginComponent } from './pages/auth/login/login.component';
+import { ContentListListComponent } from './pages/contentList/contentList-list/contentList-list.component';
+import { ProfileComponent } from './pages/user/profile/profile.component';
+import { PrivateContentListListComponent } from './pages/contentList/private-contentList-list/private-contentList-list.component';
+import { ContentListEditComponent } from './pages/contentList/contentList-edit/contentList-edit.component';
+import { ContentListDetailComponent } from './pages/contentList/contentList-detail/contentList-detail.component';
+import { AddToListComponent } from './pages/contentList/add-to-list/add-to-list.component';
 @NgModule({
   declarations: [
     AppComponent,
     ContentListComponent,
     ContentDetailComponent,
-    AboutComponent,
     ContentEditComponent,
-    UserListComponent,
-    UserDetailComponent,
-    UserEditComponent,
+    ContentListListComponent,
+    AboutComponent,
     RegisterComponent,
     LoginComponent,
+    ProfileComponent,
+    PrivateContentListListComponent,
+    ContentListEditComponent,
+    ContentListDetailComponent,
+    AddToListComponent,
   ],
   imports: [
     BrowserModule,

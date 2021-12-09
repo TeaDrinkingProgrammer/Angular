@@ -31,19 +31,23 @@
           <a class="nav-link" routerLink="user">Users</a>
         </li>
         <li ngbNavItem class="nav-item">
-          <a class="nav-link" routerLink="new-content">Add Content</a>
+          <a class="nav-link" routerLink="lists">Lists</a>
         </li>
         <li ngbNavItem class="nav-item">
-          <a class="nav-link" routerLink="new-user">Add User</a>
+          <a class="nav-link" routerLink="new-content">Add Content</a>
         </li>
         <li ngbNavItem class="nav-item">
           <a class="nav-link" routerLink="about">About</a>
         </li>
       </ul>
       <div *ngIf="loggedInUser" class="justify-content-end nav-right">
-        <a class="btn btn-primary" style="cursor: pointer" (click)="logout()"
+        <a
+          class="btn btn-primary mr-3"
+          style="cursor: pointer"
+          (click)="logout()"
           >Logout</a
         >
+        <a class="btn btn-primary" routerLink="profile">Profile</a>
       </div>
       <div *ngIf="!loggedInUser" class="justify-content-end nav-right">
         <a class="btn btn-primary mr-3" routerLink="login">Login</a>

@@ -8,7 +8,7 @@
       <th scope="col">Name</th>
       <th scope="col">Type</th>
       <th scope="col">Tags</th>
-      <th scope="col">Buttons</th>
+      <th *ngIf="this.userIsLoggedIn" scope="col">Buttons</th>
     </tr>
   </thead>
   <tbody>
@@ -27,10 +27,13 @@
           >
         </div>
       </td>
-      <td>
-        <button class="btn btn-danger" (click)="deleteContent(content.id)">
+      <td *ngIf="this.userIsLoggedIn">
+        <!-- <button class="btn btn-danger mr-2" (click)="deleteContent(content.id)">
           Delete
-        </button>
+        </button> -->
+        <a class="btn btn-primary" [routerLink]="['/add-to-list', content.id]">
+          Add to List
+        </a>
       </td>
     </tr>
   </tbody>

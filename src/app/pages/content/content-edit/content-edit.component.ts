@@ -18,6 +18,8 @@ import {
   Platform,
 } from '../content.model';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { AuthService } from '../../auth/auth.service';
+import { AlertService } from 'src/app/shared/alert/alert.service';
 interface Tag {
   value: string;
   display: string;
@@ -28,34 +30,18 @@ interface Tag {
   styleUrls: ['./content-edit.component.sass'],
 })
 export class ContentEditComponent implements OnInit {
-  private route: ActivatedRoute;
-  private contentService: ContentService;
   private subscription?: Subscription;
   public content: Content;
   public contentInterfaces: string[] = Object.keys(ContentInterface);
   public contentTypes: string[] = Object.keys(ContentType);
   public tags: Tag[] = [];
-  private router: Router;
   constructor(
-    contentRepo: ContentService,
-    route: ActivatedRoute,
-    router: Router
-  ) {
-    this.contentService = contentRepo;
-    this.route = route;
-    this.router = router;
-    this.content = {
-      id: '-1',
-      name: 'Name here',
-      tags: [''],
-      inProduction: false,
-      platforms: [],
-      contentInterface: ContentInterface.Either,
-      contentType: ContentType.Videos,
-      language: 'English',
-      user: '',
-    };
-  }
+    private contentService: ContentService,
+    private route: ActivatedRoute,
+    private router: Router,
+    private authService: AuthService,
+    private alertService: AlertService
+  ) {}
 
   ngOnInit(): void {
     //TODO two way binding met map werkt niet
@@ -75,7 +61,21 @@ export class ContentEditComponent implements OnInit {
               language: 'English',
             });
           } else {
-            return this.contentService.getForId(params.get('id') ?? '-1');
+            let userId: any;
+            this.authService.currentUser$.subscribe(
+              (user) => (userId = user?.id)
+            );
+            let returnItem = this.contentService.getForId(
+              params.get('id') ?? '-1'
+            );
+            returnItem.subscribe((item) => {
+              console.log('item: ', item);
+              if (item.user != userId) {
+                this.router.navigate(['/'], { relativeTo: this.route });
+                this.alertService.error('Cannot edit content you do not own!');
+              }
+            });
+            return returnItem;
           }
         }),
         tap(console.log)
@@ -95,7 +95,6 @@ export class ContentEditComponent implements OnInit {
       });
       console.log('item sent to service:', this.content);
       //!! TODO Temporary before auth gets implemented
-      this.content.user = '61ae43fe50046fca2e25e8bb';
       this.contentService.add(this.content).subscribe(console.log);
       this.router.navigate(['..'], { relativeTo: this.route });
     } else {

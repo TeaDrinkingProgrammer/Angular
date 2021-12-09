@@ -26,7 +26,7 @@ export class AuthService {
   // firstName: string;
   // lastName: string;
   // email: string;
-  public currentUser$ = new BehaviorSubject<User | undefined>({} as User);
+  public currentUser$ = new BehaviorSubject<User | undefined>(undefined);
   private readonly CURRENT_USER = 'currentuser';
   private readonly headers = new HttpHeaders({
     'Content-Type': 'application/json',
@@ -167,13 +167,18 @@ export class AuthService {
       .catch((error) => console.log('not logged out!'));
   }
 
-  getUserFromLocalStorage(): Observable<User | null> {
+  getUserFromLocalStorage(): Observable<User | undefined> {
     let localItem = localStorage.getItem(this.CURRENT_USER);
-    if (localItem) {
-      const localUser = JSON.parse(localItem);
-      return of(localUser);
+    console.log('localitem: ', localItem);
+    if (localItem === null) {
+      if (localItem) {
+        const localUser = JSON.parse(localItem);
+        return of(localUser);
+      }
+      console.log('localitem is false');
     }
-    return of(null);
+    console.log('localitem is null');
+    return of(undefined);
   }
 
   private saveUserToLocalStorage(user: User): void {
