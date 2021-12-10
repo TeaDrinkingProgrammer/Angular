@@ -20,6 +20,7 @@ export class CommentListComponent implements OnInit {
   isOwner: boolean = false;
   isLoggedIn: boolean = false;
   editComment: Comment;
+  finishedLoading: Observable<boolean> = of(false);
   constructor(
     private commentService: CommentService,
     private userService: UserService,
@@ -65,6 +66,10 @@ export class CommentListComponent implements OnInit {
           .subscribe((comments) => {
             console.log('subscribed comments: ', comments);
             this.comments = comments;
+            new Promise(function (resolve, reject) {
+              resolve('page loaded');
+            });
+            this.finishedLoading = of(true);
           });
       }
     });
