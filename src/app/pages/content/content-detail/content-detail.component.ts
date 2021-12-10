@@ -16,7 +16,7 @@ export class ContentDetailComponent implements OnInit {
   subscription?: Subscription;
   content: Content;
   private contentService: ContentService;
-  private isOwner: boolean;
+  isOwner: boolean;
   constructor(
     contentService: ContentService,
     route: ActivatedRoute,
@@ -40,17 +40,17 @@ export class ContentDetailComponent implements OnInit {
         tap(console.log)
       )
       .subscribe((content) => {
+        this.content = content;
         this.authService.currentUser$.subscribe((user) => {
+          console.log('content detail user:', user?.id, ':', content.user);
           if (user) {
-            if (this.content.user == user.id) {
+            if (content.user == user.id) {
               this.isOwner = true;
             } else {
               this.isOwner = false;
             }
           }
         });
-
-        this.content = content;
       });
   }
   deleteContent() {

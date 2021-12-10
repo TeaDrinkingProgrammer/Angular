@@ -44,9 +44,10 @@
         >
       </li>
     </ul>
-    <div class="d-flex justify-content-center">
+    <div *ngIf="this.isOwner" class="d-flex justify-content-center">
       <a class="btn btn-primary mr-2" routerLink="./edit">Edit</a>
-      <a *ngIf="" class="btn btn-danger" (click)="deleteContent()">Delete</a>
+      <a class="btn btn-danger" (click)="deleteContent()">Delete</a>
     </div>
   </div>
 </div>
+<app-comment-list [contentId]="this.content.id"></app-comment-list>

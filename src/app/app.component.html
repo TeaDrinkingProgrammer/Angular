@@ -40,7 +40,11 @@
           <a class="nav-link" routerLink="about">About</a>
         </li>
       </ul>
-      <div *ngIf="loggedInUser" class="justify-content-end nav-right">
+      <div
+        *ngIf="loggedInUser"
+        class="d-flex justify-content-end align-items-center nav-right"
+      >
+        <span class="user-text mr-2">{{ this.loggedInUser.firstName }}</span>
         <a
           class="btn btn-primary mr-3"
           style="cursor: pointer"

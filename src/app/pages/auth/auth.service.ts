@@ -7,7 +7,7 @@ import {
   throwError,
 } from 'rxjs';
 import { User } from '../user/user.model';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { map, tap, catchError, switchMap } from 'rxjs/operators';
 import { AlertService } from 'src/app/shared/alert/alert.service';
 import {
@@ -57,7 +57,7 @@ export class AuthService {
           } else {
             console.log(`No current user found`);
             // console.log('user length: ', Object.keys(user).length);
-            return of(undefined);
+            return of(undefined as undefined);
           }
         })
       )
@@ -67,22 +67,6 @@ export class AuthService {
   login(email: string, password: string): Observable<User> {
     const url = `${environment.backendEndpoint}/auth/login`;
     console.log(`register at ${url}`);
-    // return this.http
-    //   .post<User>(
-    //     `${environment.backendEndpoint}/auth/login`,
-    //     { email: email, password: password },
-    //     { headers: this.headers }
-    //   )
-    //   .pipe(
-    //     map((user) => {
-    //       this.saveUserToLocalStorage(user);
-    //       this.currentUser$.next(user);
-    //       //TODO fix alertservice
-    //       // this.alertService.success('You have been logged in');
-    //       return user;
-    //     }),
-    //     catchError(this.handleError)
-    //   );
     let userData = { email: email, password: password };
     return this.http
       .post<any>(url, userData, {
@@ -161,7 +145,7 @@ export class AuthService {
         // snap dit niet dus eruit gehaald -> true when canDeactivate allows us to leave the page.
         console.log('logout - removing local user info');
         localStorage.removeItem(this.CURRENT_USER);
-        this.currentUser$.next({} as User);
+        this.currentUser$.next(undefined);
         this.alertService.success('You have been logged out.');
       })
       .catch((error) => console.log('not logged out!'));
@@ -170,15 +154,13 @@ export class AuthService {
   getUserFromLocalStorage(): Observable<User | undefined> {
     let localItem = localStorage.getItem(this.CURRENT_USER);
     console.log('localitem: ', localItem);
-    if (localItem === null) {
-      if (localItem) {
-        const localUser = JSON.parse(localItem);
-        return of(localUser);
-      }
-      console.log('localitem is false');
+    if (localItem) {
+      const localUser = JSON.parse(localItem);
+      return of(localUser);
+    } else {
+      console.log('localitem is null');
+      return of(undefined);
     }
-    console.log('localitem is null');
-    return of(undefined);
   }
 
   private saveUserToLocalStorage(user: User): void {
@@ -191,7 +173,9 @@ export class AuthService {
     );
   }
   private handleError(error: HttpErrorResponse): Observable<any> {
-    console.log(error);
+    // console.log(error);
+    console.log(this);
+    // localthis.alertService.error('error');
     return throwError(() => error);
   }
 }

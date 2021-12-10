@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable, map } from 'rxjs';
 import { ContentList } from './contentList.model';
-import { GenericService } from 'src/app/generic.service';
+import { GenericService } from 'src/app/shared/services/generic.service';
 @Injectable({
   providedIn: 'root',
 })

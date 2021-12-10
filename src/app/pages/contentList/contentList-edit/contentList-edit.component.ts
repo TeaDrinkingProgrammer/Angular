@@ -63,7 +63,7 @@ export class ContentListEditComponent implements OnInit {
             returnItem.subscribe((item) => {
               console.log('item: ', item);
               if (item.user != userId) {
-                this.router.navigate(['/'], { relativeTo: this.route });
+                this.router.navigate(['/']);
                 this.alertService.error('Cannot edit content you do not own!');
               }
             });
@@ -82,14 +82,16 @@ export class ContentListEditComponent implements OnInit {
       console.log('item sent to service:', this.list);
       //!! TODO Temporary before auth gets implemented
       this.contentListService.add(this.list).subscribe(console.log);
-      this.router.navigate(['..'], { relativeTo: this.route });
+      this.router.navigate(['/profile']);
+      this.alertService.success('List has been added');
     } else {
       //TODO Update now sends unnecesary data, change to only send mutated values
       console.log('update content');
       this.contentListService
         .update(this.list.id, this.list)
         .subscribe(console.log);
-      this.router.navigate(['..'], { relativeTo: this.route });
+      this.router.navigate(['/profile']);
+      this.alertService.success('List has been updated');
     }
   }
 }

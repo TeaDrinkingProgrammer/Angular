@@ -23,6 +23,7 @@ const routes: Routes = [
     component: ContentEditComponent,
   },
   { path: 'new-content', pathMatch: 'full', component: ContentEditComponent },
+  { path: 'new-list', pathMatch: 'full', component: ContentListEditComponent },
   // { path: 'user', pathMatch: 'full', component: UserListComponent },
   { path: 'lists', pathMatch: 'full', component: ContentListListComponent },
   { path: 'about', pathMatch: 'full', component: AboutComponent },

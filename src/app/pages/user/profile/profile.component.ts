@@ -3,6 +3,8 @@ import { Observable, switchMap, tap } from 'rxjs';
 import { UserService } from '../user.service';
 import { User } from '../user.model';
 import { AuthService } from '../../auth/auth.service';
+import { Router } from '@angular/router';
+import { AlertService } from 'src/app/shared/alert/alert.service';
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
@@ -13,7 +15,9 @@ export class ProfileComponent implements OnInit {
   loggedInUser?: User;
   constructor(
     private UserService: UserService,
-    private authService: AuthService
+    private authService: AuthService,
+    private router: Router,
+    private alertService: AlertService
   ) {}
 
   ngOnInit(): void {
@@ -29,7 +33,8 @@ export class ProfileComponent implements OnInit {
       if (user != undefined) {
         this.loggedInUser = user;
       } else {
-        this.loggedInUser = undefined;
+        this.router.navigate(['/']);
+        this.alertService.error("Cannot see profile as you aren't logged in!");
       }
     });
     //doesn't work, changes all to one when going from 1 contentdetail to contentlist

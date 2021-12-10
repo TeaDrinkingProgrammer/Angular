@@ -22,6 +22,7 @@ import { PrivateContentListListComponent } from './pages/contentList/private-con
 import { ContentListEditComponent } from './pages/contentList/contentList-edit/contentList-edit.component';
 import { ContentListDetailComponent } from './pages/contentList/contentList-detail/contentList-detail.component';
 import { AddToListComponent } from './pages/contentList/add-to-list/add-to-list.component';
+import { CommentListComponent } from './pages/comments/comment-list/comment-list.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -37,6 +38,7 @@ import { AddToListComponent } from './pages/contentList/add-to-list/add-to-list.
     ContentListEditComponent,
     ContentListDetailComponent,
     AddToListComponent,
+    CommentListComponent,
   ],
   imports: [
     BrowserModule,

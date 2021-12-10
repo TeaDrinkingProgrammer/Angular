@@ -63,9 +63,12 @@ export class LoginComponent implements OnInit, OnDestroy {
         .login(email, password)
         // .pipe(delay(1000))
         .subscribe((user) => {
+          console.log('user');
           if (user) {
             console.log('Logged in');
             this.router.navigate(['/']);
+          } else {
+            console.log('not logged in');
           }
           this.submitted = false;
         });
