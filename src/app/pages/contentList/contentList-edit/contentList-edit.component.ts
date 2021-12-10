@@ -50,7 +50,7 @@ export class ContentListEditComponent implements OnInit {
             return of({
               name: 'Name here',
               description: 'Description here',
-              private: false,
+              isPrivate: false,
             });
           } else {
             let userId: any;
@@ -78,6 +78,7 @@ export class ContentListEditComponent implements OnInit {
   }
   onSubmit(): void {
     if (!this.list.id) {
+      this.list.isPrivate = !this.list.isPrivate;
       console.log('create content');
       console.log('item sent to service:', this.list);
       //!! TODO Temporary before auth gets implemented
@@ -85,6 +86,7 @@ export class ContentListEditComponent implements OnInit {
       this.router.navigate(['/profile']);
       this.alertService.success('List has been added');
     } else {
+      this.list.isPrivate = !this.list.isPrivate;
       //TODO Update now sends unnecesary data, change to only send mutated values
       console.log('update content');
       this.contentListService
