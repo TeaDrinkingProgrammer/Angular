@@ -1,53 +1,56 @@
-<div class="d-flex flex-column">
-  <h1 class="m-auto py-2">{{ content.name }}</h1>
-  <!-- icoontjes van maken -->
-  <p class="m-auto py-2">{{ content.contentInterface }}</p>
-</div>
-<div class="row d-flex justify-content-center">
-  <div class="col-10">
-    <ul class="list-unstyled">
-      <li *ngIf="content.targetLanguage">
-        <span class="px-2">Target Language:</span>
-        <span>{{ content.targetLanguage }}</span>
-      </li>
-      <li>
-        <span class="px-2">Spoken in:</span>
-        <span>{{ content.language }}</span>
-      </li>
-      <li>
-        <span class="px-2">Tags:</span>
-        <span
-          class="badge badge-primary mx-1 p-2"
-          *ngFor="let tag of content.tags"
-          >{{ tag }}</span
-        >
-      </li>
-      <li>
-        <span class="px-2">Type:</span> <span>{{ content.contentType }}</span>
-      </li>
-      <li>
-        <span class="px-2">In Production:</span>
-        <span>{{ content.inProduction == true ? "Yes" : "No" }}</span>
-      </li>
-      <li>
-        <span class="px-2">Platforms:</span>
-        <span class="px-2" *ngFor="let platform of content.platforms"
-          ><a target="_blank" href="{{ platform.link }}">{{
-            platform.name
-          }}</a></span
-        >
-      </li>
-      <li *ngIf="content.websiteLink">
-        <span class="px-2">Link:</span>
-        <a href="{{ content.websiteLink }}" target="_blank"
-          >Link to {{ content.name }} website</a
-        >
-      </li>
-    </ul>
-    <div *ngIf="this.isOwner" class="d-flex justify-content-center">
-      <a class="btn btn-primary mr-2" routerLink="./edit">Edit</a>
-      <a class="btn btn-danger" (click)="deleteContent()">Delete</a>
+<div *ngIf="content">
+  <app-spinner *ngIf="!content"></app-spinner>
+  <div class="d-flex flex-column">
+    <h1 class="m-auto py-2">{{ content.name }}</h1>
+    <!-- icoontjes van maken -->
+    <p class="m-auto py-2">{{ content.contentInterface }}</p>
+  </div>
+  <div class="row d-flex justify-content-center">
+    <div class="col-10">
+      <ul class="list-unstyled">
+        <li *ngIf="content.targetLanguage">
+          <span class="px-2">Target Language:</span>
+          <span>{{ content.targetLanguage }}</span>
+        </li>
+        <li>
+          <span class="px-2">Spoken in:</span>
+          <span>{{ content.language }}</span>
+        </li>
+        <li>
+          <span class="px-2">Tags:</span>
+          <span
+            class="badge badge-primary mx-1 p-2"
+            *ngFor="let tag of content.tags"
+            >{{ tag }}</span
+          >
+        </li>
+        <li>
+          <span class="px-2">Type:</span> <span>{{ content.contentType }}</span>
+        </li>
+        <li>
+          <span class="px-2">In Production:</span>
+          <span>{{ content.inProduction == true ? "Yes" : "No" }}</span>
+        </li>
+        <li>
+          <span class="px-2">Platforms:</span>
+          <span class="px-2" *ngFor="let platform of content.platforms"
+            ><a target="_blank" href="{{ platform.link }}">{{
+              platform.name
+            }}</a></span
+          >
+        </li>
+        <li *ngIf="content.websiteLink">
+          <span class="px-2">Link:</span>
+          <a href="{{ content.websiteLink }}" target="_blank"
+            >Link to {{ content.name }} website</a
+          >
+        </li>
+      </ul>
+      <div *ngIf="this.isOwner" class="d-flex justify-content-center">
+        <a class="btn btn-primary mr-2" routerLink="./edit">Edit</a>
+        <a class="btn btn-danger" (click)="deleteContent()">Delete</a>
+      </div>
     </div>
   </div>
+  <app-comment-list [contentId]="this.content.id"></app-comment-list>
 </div>
-<app-comment-list [contentId]="this.content.id"></app-comment-list>
