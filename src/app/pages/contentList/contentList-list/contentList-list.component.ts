@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable, switchMap, tap } from 'rxjs';
+import { map, Observable, switchMap, tap } from 'rxjs';
 import { ContentListService } from '../contentList.service';
 import { ContentList } from '../contentList.model';
 @Component({
@@ -15,9 +15,19 @@ export class ContentListListComponent implements OnInit {
     //doesn't work, changes all to one when going from 1 contentdetail to contentlist
     this.contentLists$ = this.contentListService
       .getAll()
-      .pipe(tap(console.log));
+
+      .pipe(
+        map((contentLists) => {
+          let returnLists;
+          returnLists = contentLists.filter((list) => {
+            console.log('list', list);
+            return list.isPrivate == false;
+          });
+          return returnLists;
+        }),
+        tap(console.log)
+      );
     console.log('list:');
-    this.contentLists$.pipe(tap(console.log));
   }
   // deleteContent(id: string) {
   //   console.log('button click', id);

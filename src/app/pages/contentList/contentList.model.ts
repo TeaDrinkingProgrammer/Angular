@@ -4,5 +4,5 @@ export interface ContentList {
   description: string[];
   user: string;
   content: string[];
-  private: boolean;
+  isPrivate: boolean;
 }
