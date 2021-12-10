@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, ParamMap } from '@angular/router';
+import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { Observable, Subscription, switchMap, tap } from 'rxjs';
 import { ContentService } from '../content.service';
 import { Content, ContentInterface, ContentType } from '../content.model';
+import { AlertService } from 'src/app/shared/alert/alert.service';
+import { AuthService } from '../../auth/auth.service';
 @Component({
   selector: 'app-content-detail',
   templateUrl: './content-detail.component.html',
@@ -12,9 +14,16 @@ export class ContentDetailComponent implements OnInit {
   id?: number | null;
   route: ActivatedRoute;
   subscription?: Subscription;
-  content$?: Content;
+  content: Content;
   private contentService: ContentService;
-  constructor(contentService: ContentService, route: ActivatedRoute) {
+  isOwner: boolean;
+  constructor(
+    contentService: ContentService,
+    route: ActivatedRoute,
+    private router: Router,
+    private alertService: AlertService,
+    private authService: AuthService
+  ) {
     this.contentService = contentService;
     this.route = route;
   }
@@ -31,7 +40,23 @@ export class ContentDetailComponent implements OnInit {
         tap(console.log)
       )
       .subscribe((content) => {
-        this.content$ = content;
+        this.content = content;
+        this.authService.currentUser$.subscribe((user) => {
+          console.log('content detail user:', user?.id, ':', content.user);
+          if (user) {
+            if (content.user == user.id) {
+              this.isOwner = true;
+            } else {
+              this.isOwner = false;
+            }
+          }
+        });
       });
+  }
+  deleteContent() {
+    //Response returns deleted items
+    this.contentService.deleteForId(this.content.id).pipe().subscribe();
+    this.router.navigate(['/']);
+    this.alertService.success('Item successfully deleted');
   }
 }

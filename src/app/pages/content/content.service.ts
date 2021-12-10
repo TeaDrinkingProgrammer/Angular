@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable, map } from 'rxjs';
 import { Content } from './content.model';
-import { GenericService } from 'src/app/generic.service';
+import { GenericService } from 'src/app/shared/services/generic.service';
 @Injectable({
   providedIn: 'root',
 })
@@ -15,7 +15,7 @@ export class ContentService {
       .toLowerCase();
     sentItem.contentType = sentItem.contentType.toString().toLowerCase();
     delete sentItem.id;
-    return this.genericService.update(id, item, this.route);
+    return this.genericService.update(id, sentItem, this.route);
   }
   add(item: Content) {
     let sentItem: any = item;
@@ -23,7 +23,7 @@ export class ContentService {
       .toString()
       .toLowerCase();
     sentItem.contentType = sentItem.contentType.toString().toLowerCase();
-    return this.genericService.add(item, this.route);
+    return this.genericService.add(item, this.route, true);
   }
   getForId(id: string): Observable<Content> {
     return this.genericService.getForId(
@@ -43,7 +43,7 @@ export class ContentService {
   }
   public deleteForId(id: string) {
     console.log('deleteForId');
-    return this.genericService.deleteForId(id, this.route);
+    return this.genericService.deleteForId(id, this.route, true);
   }
 
   public getAll(options?: any): Observable<Content[]> {

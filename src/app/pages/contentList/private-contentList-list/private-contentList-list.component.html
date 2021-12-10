@@ -1,0 +1,24 @@
+<div class="d-flex">
+  <h1 class="m-auto py-2">Your lists</h1>
+</div>
+<div class="d-flex justify-content-end">
+  <a class="btn btn-success" routerLink="/new-list">New List</a>
+</div>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Name</th>
+      <th scope="col">Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let contentList of contentLists$ | async; index as i">
+      <th scope="row">{{ i + 1 }}</th>
+      <td>
+        <a [routerLink]="['/list/', contentList.id]">{{ contentList.name }}</a>
+      </td>
+      <td>{{ contentList.description }}</td>
+    </tr>
+  </tbody>
+</table>

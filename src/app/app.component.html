@@ -1,37 +1,79 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <div class="container-fluid">
-        <a class="navbar-brand" href="#">Navbar</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" aria-expanded="false" aria-label="Toggle navigation"
-            (click)="isCollapsed = !isCollapsed">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent" [ngbCollapse]="isCollapsed">
-            <ul ngbNav class="navbar-nav me-auto mb-2 mb-lg-0">
-                <li ngbNavItem class="nav-item">
-                    <a class="nav-link" routerLink="">Home</a>
-                </li>
-                <li ngbNavItem class="nav-item">
-                    <a class="nav-link" routerLink="content">Content</a>
-                </li>
-                <li ngbNavItem class="nav-item">
-                    <a class="nav-link" routerLink="user">Users</a>
-                </li>
-                <li ngbNavItem class="nav-item">
-                    <a class="nav-link" routerLink="new-content">Add Content</a>
-                </li>
-                <li ngbNavItem class="nav-item">
-                    <a class="nav-link" routerLink="new-user">Add User</a>
-                </li>
-                <li ngbNavItem class="nav-item">
-                    <a class="nav-link" routerLink="about">About</a>
-                </li>
-            </ul>
-        </div>
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">Navbar</a>
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-bs-toggle="collapse"
+      data-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+      (click)="isCollapsed = !isCollapsed"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div
+      class="collapse navbar-collapse d-flex"
+      id="navbarSupportedContent"
+      [ngbCollapse]="isCollapsed"
+    >
+      <ul ngbNav class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li ngbNavItem class="nav-item">
+          <a class="nav-link" routerLink="">Home</a>
+        </li>
+        <li ngbNavItem class="nav-item">
+          <a class="nav-link" routerLink="content">Content</a>
+        </li>
+        <li ngbNavItem class="nav-item">
+          <a class="nav-link" routerLink="user">Users</a>
+        </li>
+        <li ngbNavItem class="nav-item">
+          <a class="nav-link" routerLink="lists">Lists</a>
+        </li>
+        <li ngbNavItem class="nav-item">
+          <a class="nav-link" routerLink="new-content">Add Content</a>
+        </li>
+        <li ngbNavItem class="nav-item">
+          <a class="nav-link" routerLink="about">About</a>
+        </li>
+      </ul>
+      <div
+        *ngIf="loggedInUser"
+        class="d-flex justify-content-end align-items-center nav-right"
+      >
+        <span class="user-text mr-2">{{ this.loggedInUser.firstName }}</span>
+        <a
+          class="btn btn-primary mr-3"
+          style="cursor: pointer"
+          (click)="logout()"
+          >Logout</a
+        >
+        <a class="btn btn-primary" routerLink="profile">Profile</a>
+      </div>
+      <div *ngIf="!loggedInUser" class="justify-content-end nav-right">
+        <a class="btn btn-primary mr-3" routerLink="login">Login</a>
+        <a class="btn btn-primary" routerLink="register">Register</a>
+      </div>
     </div>
+  </div>
 </nav>
+<app-alert></app-alert>
 <main class="container-lg py-2 h-100">
-    <router-outlet></router-outlet>
+  <router-outlet></router-outlet>
 </main>
-<footer class="footer d-flex justify-content-center bg-light p-2 mt-auto align-items-center">
-    <p class="m-0 p-0"> By Stijn van Houwelingen</p>
+<footer
+  class="
+    footer
+    d-flex
+    justify-content-center
+    bg-light
+    p-2
+    mt-auto
+    align-items-center
+  "
+>
+  <p class="m-0 p-0">By Stijn van Houwelingen</p>
 </footer>

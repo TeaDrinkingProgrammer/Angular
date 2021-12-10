@@ -5,26 +5,47 @@ import { AboutComponent } from './pages/about/about.component';
 import { ContentEditComponent } from './pages/content/content-edit/content-edit.component';
 import { ContentDetailComponent } from './pages/content/content-detail/content-detail.component';
 import { ContentListComponent } from './pages/content/content-list/content-list.component';
-import { UserListComponent } from './pages/user/user-list/user-list.component';
-import { UserDetailComponent } from './pages/user/user-detail/user-detail.component';
-import { UserEditComponent } from './pages/user/user-edit/user-edit.component';
+import { LoginComponent } from './pages/auth/login/login.component';
+import { RegisterComponent } from './pages/auth/register/register.component';
+import { ContentListListComponent } from './pages/contentList/contentList-list/contentList-list.component';
+import { ProfileComponent } from './pages/user/profile/profile.component';
+import { ContentListEditComponent } from './pages/contentList/contentList-edit/contentList-edit.component';
+import { ContentListDetailComponent } from './pages/contentList/contentList-detail/contentList-detail.component';
+import { AddToListComponent } from './pages/contentList/add-to-list/add-to-list.component';
 
 const routes: Routes = [
   { path: '', pathMatch: 'full', component: IndexComponent },
-  { path:'content',pathMatch:'full',component: ContentListComponent},//kan met children kindroutes maken
-  { path:'content/:id',pathMatch:'full',component: ContentDetailComponent}, 
-  { path:'content/:id/edit',pathMatch:'full',component: ContentEditComponent}, 
-  { path:'new-content',pathMatch:'full',component: ContentEditComponent},
-  { path: 'user',pathMatch:'full',component: UserListComponent}, 
-  { path: 'user/:id',pathMatch:'full',component: UserDetailComponent}, 
-  { path: 'user/:id/edit',pathMatch:'full',component: UserEditComponent}, 
-  { path:'about',pathMatch:'full',component: AboutComponent },
-  { path:'new-user',pathMatch:'full',component: UserEditComponent},
+  { path: 'content', pathMatch: 'full', component: ContentListComponent }, //kan met children kindroutes maken
+  { path: 'content/:id', pathMatch: 'full', component: ContentDetailComponent },
+  {
+    path: 'content/:id/edit',
+    pathMatch: 'full',
+    component: ContentEditComponent,
+  },
+  { path: 'new-content', pathMatch: 'full', component: ContentEditComponent },
+  { path: 'new-list', pathMatch: 'full', component: ContentListEditComponent },
+  // { path: 'user', pathMatch: 'full', component: UserListComponent },
+  { path: 'lists', pathMatch: 'full', component: ContentListListComponent },
+  { path: 'about', pathMatch: 'full', component: AboutComponent },
+  { path: 'login', pathMatch: 'full', component: LoginComponent },
+  { path: 'register', pathMatch: 'full', component: RegisterComponent },
+  { path: 'profile', pathMatch: 'full', component: ProfileComponent },
+  {
+    path: 'list/:id/edit',
+    pathMatch: 'full',
+    component: ContentListEditComponent,
+  },
+  {
+    path: 'list/:id',
+    pathMatch: 'full',
+    component: ContentListDetailComponent,
+  },
+  { path: 'add-to-list/:id', pathMatch: 'full', component: AddToListComponent },
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class AppRoutingModule { }
-export { routes}
+export class AppRoutingModule {}
+export { routes };

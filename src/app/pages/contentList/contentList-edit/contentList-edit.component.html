@@ -1,0 +1,67 @@
+<div class="d-flex flex-column">
+  <h1 class="m-auto py-2">Edit</h1>
+</div>
+<div class="d-flex justify-content-center col-7 mx-auto">
+  <form
+    class="mx-auto"
+    #listEditForm="ngForm"
+    name="editForm"
+    (ngSubmit)="listEditForm.form.valid && onSubmit()"
+  >
+    <div class="form-row">
+      <div class="form-group">
+        <label for="listName">Name</label>
+        <input
+          type="text"
+          class="form-control"
+          [(ngModel)]="list.name"
+          name="listName"
+          #listName="ngModel"
+          [ngClass]="{
+            'is-invalid': listName.invalid
+          }"
+          required
+        />
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="d-flex flex-column form-group">
+        <label for="listPrivate">Is your list public</label>
+        <input
+          type="checkbox"
+          class="form-control"
+          [(ngModel)]="!list.private"
+          name="contentInProduction"
+          #listPrivate="ngModel"
+          [ngClass]="{
+            'is-invalid': listPrivate.invalid
+          }"
+        />
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group">
+        <label for="listDescription">Description</label>
+        <input
+          type="text"
+          class="form-control"
+          [(ngModel)]="list.description"
+          name="listDescription"
+          #listDescription="ngModel"
+          [ngClass]="{
+            'is-invalid': listDescription.invalid
+          }"
+          required
+        />
+      </div>
+    </div>
+    <button
+      class="btn btn-success"
+      [disabled]="!listEditForm.valid"
+      type="submit"
+      (click)="onSubmit()"
+    >
+      Save
+    </button>
+  </form>
+</div>
