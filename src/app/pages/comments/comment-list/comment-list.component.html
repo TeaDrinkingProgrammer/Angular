@@ -1,0 +1,136 @@
+<link
+  href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css"
+  rel="stylesheet"
+/>
+<section class="content-item my-3" id="comments">
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-8">
+        <form
+          *ngIf="this.isLoggedIn"
+          class="mx-auto"
+          #listEditForm="ngForm"
+          name="editForm"
+          (ngSubmit)="listEditForm.form.valid && onSubmit()"
+        >
+          <div class="form-row">
+            <h3 class="pull-left">New Comment</h3>
+            <div class="form-group"></div>
+          </div>
+          <div class="form-group">
+            <textarea
+              type="text-area"
+              class="form-control"
+              [(ngModel)]="newComment.commentText"
+              name="newCommentText"
+              #newCommentText="ngModel"
+              [ngClass]="{
+                'is-invalid': newCommentText.invalid
+              }"
+            ></textarea>
+          </div>
+          <button
+            class="btn btn-success"
+            [disabled]="!listEditForm.valid"
+            type="submit"
+          >
+            Save
+          </button>
+        </form>
+
+        <h3 *ngIf="comments.length == 1; else dynamicCommentCount">
+          1 Comment
+        </h3>
+
+        <ng-template #dynamicCommentCount>
+          <h3>{{ comments.length }} Comments</h3>
+        </ng-template>
+        <!-- COMMENT 1 - START -->
+        <div *ngFor="let comment of comments" class="media">
+          <div class="media-body">
+            <h4 class="media-heading">
+              {{ comment.userFirstName }} {{ comment.userLastName }}
+            </h4>
+            <p *ngIf="!comment.edit">
+              {{ comment.commentText }}
+            </p>
+            <form
+              *ngIf="comment.edit"
+              class="mx-auto"
+              #commentEditForm="ngForm"
+              name="commentEditForm"
+              (ngSubmit)="
+                commentEditForm.form.valid && editOnSubmit(comment.id)
+              "
+            >
+              <div class="form-row">
+                <h3 class="pull-left">Edit comment</h3>
+                <div class="form-group"></div>
+              </div>
+              <div class="form-group">
+                <textarea
+                  type="text-area"
+                  class="form-control"
+                  [(ngModel)]="editComment.commentText"
+                  name="editCommentText"
+                  #editCommentText="ngModel"
+                  [ngClass]="{
+                    'is-invalid': editCommentText.invalid
+                  }"
+                ></textarea>
+              </div>
+              <button
+                class="btn btn-success"
+                [disabled]="!commentEditForm.valid"
+                type="submit"
+              >
+                Save
+              </button>
+            </form>
+            <ul class="list-unstyled list-inline media-detail pull-left"></ul>
+            <ul class="list-unstyled list-inline media-detail pull-right">
+              <li>
+                <a style="text-decoration: none"
+                  ><i
+                    *ngIf="this.isLoggedIn"
+                    class="fa fa-thumbs-up fa-clickable"
+                    style="cursor: pointer"
+                    [ngClass]="comment.likedByUser ? 'fa-likebtn-liked' : ''"
+                    (click)="this.like(comment.id)"
+                  ></i>
+                  <i
+                    *ngIf="!this.isLoggedIn"
+                    class="fa fa-thumbs-up fa-clickable"
+                    [ngClass]="comment.likedByUser ? 'fa-likebtn-liked' : ''"
+                  ></i>
+                  {{ comment.votesCount }}</a
+                >
+              </li>
+              <li>
+                <div
+                  *ngIf="comment.isOwner"
+                  class="d-flex justify-content-center"
+                >
+                  <button
+                    class="btn btn-primary p-1 m-1"
+                    (click)="edit(comment.id)"
+                  >
+                    Edit
+                  </button>
+                  <button
+                    class="btn btn-danger p-1 m-1"
+                    (click)="deleteComment(comment.id)"
+                  >
+                    Delete
+                  </button>
+                  <!-- <a class="btn btn-danger" (click)="deleteContent()">Delete</a> -->
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <!-- COMMENT 1 - END -->
+      </div>
+    </div>
+  </div>
+</section>
