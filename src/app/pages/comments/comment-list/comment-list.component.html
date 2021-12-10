@@ -2,7 +2,7 @@
   href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css"
   rel="stylesheet"
 />
-<section class="content-item my-3" id="comments">
+<section *ngIf="this.comments" class="content-item my-3" id="comments">
   <div class="container">
     <div class="row">
       <div class="col-sm-8">
@@ -134,3 +134,4 @@
     </div>
   </div>
 </section>
+<app-spinner *ngIf="!this.comments"></app-spinner>
