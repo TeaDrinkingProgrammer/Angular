@@ -1,6 +1,6 @@
 # AngularApp
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 13.0.1.
+Angular project for learning Angular. The project allows people to add entries of videos/podcasts/movies etc. that are usefull for language learning.
 
 ## Development server
 
