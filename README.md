@@ -1,6 +1,6 @@
 # AngularApp
 
-School project from the second semester of 2021/2022. The goal of this project was to think of a website you wanted to make and make that website using Angular. This project was made in conjunction with a Mongodb/Neo4j server, my version of which is hosted (here)[https://github.com/TeaDrinkingProgrammer/mongoose-server] (As of March 2022, that project is still in development). The project allows people to add entries of videos/podcasts/movies etc. that are usefull for language learning.
+School project from the second semester of 2021/2022. The goal of this project was to think of a website you wanted to make and make that website using Angular. This project was made in conjunction with a Mongodb/Neo4j server, my version of which is hosted [here](https://github.com/TeaDrinkingProgrammer/mongoose-server) (As of March 2022, that project is still in development). The project allows people to add entries of videos/podcasts/movies etc. that are usefull for language learning.
 
   ## Pitch (also available on the "about" page:
 This project is a resource for language learners to find content (content
